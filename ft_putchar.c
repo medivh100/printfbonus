@@ -1,7 +1,7 @@
 #include "libft.h"
-#include "libprintf.h"
+#include "ft_printf.h"
 
-void    ft_putchar(int c, int *res)
+void	ft_putchar(int c, int *res)
 {
-    *res += write(1, &c, 1);
+	*res += write(1, &c, 1);
 }
