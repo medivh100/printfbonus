@@ -1,17 +1,19 @@
 #include "libft.h"
-#include "libprintf.h"
+#include "ft_printf.h"
 
-void ft_putnbr(long long n, int *res)
-{	if (n < 0)
+void	ft_putnbr(int n, int *res)
+{
+	long long nout = (long long) n;
+	if (nout < 0)
 	{
 		ft_putchar('-', res);
-		n = -n;
+		nout = -nout;
 	}
-	if (n >= 10)
+	if (nout >= 10)
 	{
-		ft_putnbr(n / 10, res);
-		n = n % 10;
+		ft_putnbr(nout / 10, res);
+		nout = nout % 10;
 	}
-	if (n <= 9 && n >= 0)
-		ft_putchar((n + 48), res);
+	if (nout <= 9 && nout >= 0)
+		ft_putchar((nout + 48), res);
 }
