@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-int	flagnum(char *s)
+int	flagnum(const char *s)
 {
 	int count;
 	int trigger;
