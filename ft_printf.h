@@ -29,7 +29,11 @@ void			ft_putuns(unsigned int n, int *res);
 void			ft_putptr_base(unsigned long long nbr, char *base, int *res);
 struct Flags 	initstruct(struct Flags);
 struct Flags 	flagformat(const char *s);
-void			parseformat(struct Flags format);
+void			parseformat(struct Flags format, char **str);
 int				validateflag(int c);
+int				flagnum(char *s);
+int				stringlen(char *s, int *index);
+char 			**memalloc(char *s);
+char			**subflag(char *s, char **str);
 
 #endif
