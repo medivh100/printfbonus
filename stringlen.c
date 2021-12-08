@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-int		stringlen(char *s, int *index)
+int		stringlen(const char *s, int *index)
 {
 	int i;
 	int	count;

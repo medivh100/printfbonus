@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-char	**subflag(char *s, char **str)
+char	**subflag(const char *s, char **str)
 {
 	int		index;
 	int		i;
