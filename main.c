@@ -76,48 +76,78 @@ char **memalloc(char *s)
 	return (rstr);
 }
 
-char	*subflag(char **str, char *s, int *index)
+char	**subflag(char *s, char **str)
 {
+	int		index;
 	int		i;
+	int		j;
 
-	i = *index;
-	while (s[i])
+	str = memalloc(s);
+	i = 0;
+	j = 0;
+	index = 0;
+	while (s[index])
 	{
-		if (s[i] == '%')
+		if (s[index] == '%')
 		{
-			while (validateflag(s[i] == 0))
+			while (s[index + i] != ' ')
 			{
-				str[i] 
-			
+				str[j][i] = s[index + i];
+				i++;
+				if (s[index + i] == '%')
+					break ;
 			}
+		i = 0;
+		j++;
 		}
-		i++;
+	index++;
 	}
+	return (str);
 }
 
-// char	**flagsplit(char *s)
-// {
-// 	char	**str;
-// 	int		i;
+void	parseformat(struct Flags format, char **str)
+{
 
-// 	str = memalloc(s);
-	
-// 	return (str);
-// }
+}
+
+int	ft_printf(const char *s, ...)
+{
+	int		res;
+	va_list	ap;
+
+	res = 0;
+	va_start(ap, s);
+	strcreate(s, ap, &res);
+	return (res);
+}
 
 int main(void)
 {
-
-	// int i;
-	// int count;
-
-	// i = 0;
-	// count = -1;
 	char	**str;
+	int		count;
+	int		i;
 
-	str = memalloc("%-15.15s %04d %s");
+	i = 0;
+	count = flagnum("%-15.15s %04d %s %13s");
+
+	struct Flags flagarr[flagnum("%-15.15s %04d %s %13s")];
+
+	while (i < count)
+	{
+		flagarr[i] = initstruct(flagarr[i]);
+		i++;
+	}
+	flagarr[0].dot = 1;
+
+	printf("%d\n", flagarr[1].dot); 
+
+	str = subflag("%-15.15s %04d %s %13s", str);
+
+	printf("%s ", str[0]);
+	printf("%s ", str[1]);
+	printf("%s ", str[2]);
+	printf("%s ", str[3]);
+	printf("%s ", str[4]);
 	
-	//printf("%d\n", stringlen("%-15.15s %04d %s", &i));
-
 	return (0);
 }
