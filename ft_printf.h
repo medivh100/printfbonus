@@ -28,12 +28,12 @@ void			ft_putptr(long long ptr, int *res);
 void			ft_putuns(unsigned int n, int *res);
 void			ft_putptr_base(unsigned long long nbr, char *base, int *res);
 struct Flags 	initstruct(struct Flags);
-struct Flags 	flagformat(const char *s);
-void			parseformat(struct Flags format, char **str);
+struct Flags 	*flagformat(const char *s);
+void			parseformat(struct Flags *format, char **str);
 int				validateflag(int c);
-int				flagnum(char *s);
-int				stringlen(char *s, int *index);
-char 			**memalloc(char *s);
-char			**subflag(char *s, char **str);
+int				flagnum(const char *s);
+int				stringlen(const char *s, int *index);
+char 			**memalloc(const char *s);
+char			**subflag(const char *s, char **str);
 
 #endif
