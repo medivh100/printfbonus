@@ -3,5 +3,5 @@
 
 void	parseformat(struct Flags format, char **str)
 {
-
+	
 }

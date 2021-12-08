@@ -10,7 +10,21 @@ int validateflag(int c)
     return (1);
 }
 
-int	flagnum(char *s)
+struct Flags initstruct(struct Flags format)
+{
+	format.dot = 0;
+	format.dotstring = 0;
+	format.flag = 0;
+	format.minus = 0;
+	format.minusfield = 0;
+	format.plus = 0;
+	format.sharp = 0;
+	format.space = 0;
+	format.zero = 0;
+	return (format);
+}
+
+int	flagnum(const char *s)
 {
 	int count;
 	int trigger;
@@ -31,7 +45,7 @@ int	flagnum(char *s)
 	return (count);
 }
 
-int		stringlen(char *s, int *index)
+int		stringlen(const char *s, int *index)
 {
 	int i;
 	int	count;
@@ -56,7 +70,7 @@ int		stringlen(char *s, int *index)
 	return (count + 1);
 }
 
-char **memalloc(char *s)
+char **memalloc(const char *s)
 {
 	char **rstr;
 	int count;
@@ -76,7 +90,7 @@ char **memalloc(char *s)
 	return (rstr);
 }
 
-char	**subflag(char *s, char **str)
+char	**subflag(const char *s, char **str)
 {
 	int		index;
 	int		i;
@@ -105,21 +119,40 @@ char	**subflag(char *s, char **str)
 	return (str);
 }
 
-void	parseformat(struct Flags format, char **str)
+struct Flags	*flagsformat(const char *s)
 {
+	int				i;
+	int				count;
+	struct Flags	*format;
+
+	format = malloc((flagnum(s)) * sizeof (struct Flags));
+	i = 0;
+	count = flagnum(s);
+	while (i < count)
+	{
+		format[i] = initstruct(format[i]);
+		i++;
+	}
+	return (format);
+}
+
+void	parseformat(struct Flags *format, char **str)
+{
+	int count;
+
 
 }
 
-int	ft_printf(const char *s, ...)
-{
-	int		res;
-	va_list	ap;
+// int	ft_printf(const char *s, ...)
+// {
+// 	int		res;
+// 	va_list	ap;
 
-	res = 0;
-	va_start(ap, s);
-	strcreate(s, ap, &res);
-	return (res);
-}
+// 	res = 0;
+// 	va_start(ap, s);
+// 	strcreate(s, ap, &res);
+// 	return (res);
+// }
 
 int main(void)
 {
@@ -130,16 +163,19 @@ int main(void)
 	i = 0;
 	count = flagnum("%-15.15s %04d %s %13s");
 
-	struct Flags flagarr[flagnum("%-15.15s %04d %s %13s")];
+	struct Flags *flagarr;
 
-	while (i < count)
-	{
-		flagarr[i] = initstruct(flagarr[i]);
-		i++;
-	}
+	flagarr = flagsformat("%-15.15s %04d %s %13s");
 	flagarr[0].dot = 1;
+	flagarr[1].dot = 2;
+	flagarr[2].dot = 3;
+	flagarr[3].dot = 4;
 
+	printf("%d\n", flagarr[0].dot);
 	printf("%d\n", flagarr[1].dot); 
+	printf("%d\n", flagarr[2].dot); 
+	printf("%d\n", flagarr[3].dot); 
+
 
 	str = subflag("%-15.15s %04d %s %13s", str);
 
