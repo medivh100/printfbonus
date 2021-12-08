@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-char **memalloc(char *s)
+char **memalloc(const char *s)
 {
 	char **rstr;
 	int count;
