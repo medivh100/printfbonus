@@ -1,13 +1,13 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-struct Flags	*flagsformat(const char *s)
+t_flags	*flagformat(const char *s)
 {
 	int				i;
 	int				count;
-	struct Flags	*format;
+	t_flags			*format;
 
-	format = malloc((flagnum(s)) * sizeof (struct Flags));
+	format = malloc((flagnum(s)) * sizeof (t_flags));
 	i = 0;
 	count = flagnum(s);
 	while (i < count)
