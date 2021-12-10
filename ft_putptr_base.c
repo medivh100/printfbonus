@@ -1,9 +1,8 @@
-#include "ft_printf.h"
 #include "libft.h"
+#include "ft_printf.h"
 
 void	ft_putptr_base(unsigned long long nbr, char *base, int *res)
-{	
-	//long long nout = (long long) nbr;
+{
 	if (nbr < 0)
 	{
 		ft_putchar('-', res);
