@@ -5,7 +5,7 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
-struct Flags
+typedef struct t_flags
 {
 	int		flag;
 	int		minus;
@@ -15,8 +15,8 @@ struct Flags
 	int		space;
 	int		zero;
 	int		dot;
-	int		dotstring;
-};
+	int		dotfield;
+} t_flags;
 
 int     		ft_printf(const char *, ...);
 void    		dispatchflag(int, va_list, int *);
@@ -27,13 +27,18 @@ void    		ft_putchar(int , int *);
 void			ft_putptr(long long ptr, int *res);
 void			ft_putuns(unsigned int n, int *res);
 void			ft_putptr_base(unsigned long long nbr, char *base, int *res);
-struct Flags 	initstruct(struct Flags);
-struct Flags 	*flagformat(const char *s);
-void			parseformat(struct Flags *format, char **str);
 int				validateflag(int c);
+
+t_flags		 	initstruct(t_flags);
+t_flags		 	*flagformat(const char *s);
+void			parseformat(t_flags *format, char **str);
 int				flagnum(const char *s);
 int				stringlen(const char *s, int *index);
 char 			**memalloc(const char *s);
 char			**subflag(const char *s, char **str);
+t_flags 		popstructone(char *s, t_flags format);
+t_flags			popstructtwo(char *s, t_flags format);
+int				minusfield(char *s);
+int				dotfield(char *s);
 
 #endif
