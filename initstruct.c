@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-struct Flags initstruct(struct Flags format)
+t_flags initstruct(t_flags format)
 {
 	format.dot = 0;
 	format.dotstring = 0;
