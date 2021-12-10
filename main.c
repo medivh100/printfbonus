@@ -10,10 +10,10 @@ int validateflag(int c)
     return (1);
 }
 
-struct Flags initstruct(struct Flags format)
+t_flags initstruct(t_flags format)
 {
 	format.dot = 0;
-	format.dotstring = 0;
+	format.dotfield = 0;
 	format.flag = 0;
 	format.minus = 0;
 	format.minusfield = 0;
@@ -33,8 +33,16 @@ int	flagnum(const char *s)
 	trigger = 0;
 	while (*s)
 	{
+		if (*s == '%' && *(s + 1) == '%')
+		{
+			s += 2;
+			count++;
+		}
 		if (*s == '%')
+		{
 			trigger = 1;
+			s++;
+		}
 		if (trigger == 1 && validateflag(*s) == 1)
 		{
 			count++;
@@ -119,13 +127,13 @@ char	**subflag(const char *s, char **str)
 	return (str);
 }
 
-struct Flags	*flagsformat(const char *s)
+t_flags	*flagformat(const char *s)
 {
 	int				i;
 	int				count;
-	struct Flags	*format;
+	t_flags			*format;
 
-	format = malloc((flagnum(s)) * sizeof (struct Flags));
+	format = malloc((flagnum(s)) * sizeof (t_flags));
 	i = 0;
 	count = flagnum(s);
 	while (i < count)
@@ -136,12 +144,12 @@ struct Flags	*flagsformat(const char *s)
 	return (format);
 }
 
-void	parseformat(struct Flags *format, char **str)
-{
-	int count;
+// void	parseformat(struct Flags *format, char **str)
+// {
+// 	int count;
 
 
-}
+// }
 
 // int	ft_printf(const char *s, ...)
 // {
@@ -154,36 +162,62 @@ void	parseformat(struct Flags *format, char **str)
 // 	return (res);
 // }
 
+int	minusfield(char *s)
+{
+	int		num;
+	int		trigger;
+
+	num = 0;
+	trigger = 0;
+	while (*s)
+	{
+		s++;
+		if ((*s == '-' || *s == ' ' || *s == '.' || validateflag(*s) == 1) && trigger == 1)
+			break ;
+		if (*s == '-')
+		{
+			trigger = 1;
+			s++;
+		}
+		if ((*s > '0' && *s < '9') && trigger == 1)
+		{
+			num = num * 10;
+			num += *s - 48;
+		}
+	}
+	return (num);
+}
+
+int	dotfield(char *s)
+{
+	int		num;
+	int		trigger;
+
+	num = 0;
+	trigger = 0;
+	while (*s)
+	{
+		s++;
+		if ((*s == '-' || *s == ' ' || *s == '.' || validateflag(*s) == 1) && trigger == 1)
+			break ;
+		if (*s == '.')
+		{
+			trigger = 1;
+			s++;
+		}
+		if ((*s > '0' && *s < '9') && trigger == 1)
+		{
+			num = num * 10;
+			num += *s - 48;
+		}
+	}
+	return (num);
+}
+
 int main(void)
 {
-	char	**str;
-	int		count;
-	int		i;
-
-	i = 0;
-	count = flagnum("%-15.15s %04d %s %13s");
-
-	struct Flags *flagarr;
-
-	flagarr = flagsformat("%-15.15s %04d %s %13s");
-	flagarr[0].dot = 1;
-	flagarr[1].dot = 2;
-	flagarr[2].dot = 3;
-	flagarr[3].dot = 4;
-
-	printf("%d\n", flagarr[0].dot);
-	printf("%d\n", flagarr[1].dot); 
-	printf("%d\n", flagarr[2].dot); 
-	printf("%d\n", flagarr[3].dot); 
-
-
-	str = subflag("%-15.15s %04d %s %13s", str);
-
-	printf("%s ", str[0]);
-	printf("%s ", str[1]);
-	printf("%s ", str[2]);
-	printf("%s ", str[3]);
-	printf("%s ", str[4]);
+	printf("%d\n", minusfield("%-12.13s"));
+	printf("%d\n", dotfield("%-12.13s"));
 	
 	return (0);
 }
