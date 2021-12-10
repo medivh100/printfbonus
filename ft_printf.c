@@ -8,9 +8,9 @@ int	ft_printf(const char *s, ...)
 {
 	int		res;
 	va_list	ap;
-
+	t_flags format;
+	format = initstruct(format);
 	res = 0;
 	va_start(ap, s);
-	strcreate(s, ap, &res);
-	return (res);
+	return (0);
 }
