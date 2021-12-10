@@ -10,8 +10,16 @@ int	flagnum(const char *s)
 	trigger = 0;
 	while (*s)
 	{
+		if (*s == '%' && *(s + 1) == '%')
+		{
+			count++;
+			s += 2;
+		}
 		if (*s == '%')
+		{
 			trigger = 1;
+			s++;
+		}
 		if (trigger == 1 && validateflag(*s) == 1)
 		{
 			count++;
