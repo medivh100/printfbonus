@@ -4,12 +4,12 @@
 void	parseformat(t_flags *format, char **str)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (str)
+	while (str[i])
 	{
-
+		format[i] = popstructone(str[i], format[i]);
+		format[i] = popstructtwo(str[i], format[i]);
+		i++;
 	}
 }
