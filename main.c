@@ -214,10 +214,36 @@ int	dotfield(char *s)
 	return (num);
 }
 
+int findfieldwidth(const char *s)
+{
+    int		num;
+	int		trigger;
+
+	num = 0;
+	trigger = 0;
+	while (*s)
+	{
+		if ((*s == '-' || *s == ' ' || *s == '.' || validateflag(*s) == 1) && trigger == 1)
+			break ;
+		if (*s == '%')
+			trigger = 1;
+		if ((*s >= '0' && *s <= '9') && trigger == 1)
+		{
+			num = num * 10;
+			num += *s - 48;
+		}
+		s++;
+	}
+	return (num);
+}
+
 int main(void)
 {
-	printf("%d\n", minusfield("%-12.13s"));
-	printf("%d\n", dotfield("%-12.13s"));
+	int i;
+
+	//i = findfieldwidth("%0110.12X");
+	//printf("%d\n", i);
+	printf("%10.12x", 100);
 	
 	return (0);
 }
