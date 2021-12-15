@@ -1,19 +1,12 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-
-// typedef struct t_flags
-// {
-// 	int		flag;
-// 	int		plus;
-// 	int		sharp;
-// 	int		space;
-// } t_flags;
-
-t_flags	popstructtwo(char *s, t_flags format)
+t_flags	popstructtwo(const char *s, t_flags format)
 {
 	while (*s)
 	{
+		if (*s >= 0 && *s <= 9)
+			format.fieldwidth = findfieldwidth(s);
 		if (*s == '+')
 			format.plus = 1;
 		if (*s == '#')
