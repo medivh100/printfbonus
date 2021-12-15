@@ -1,23 +1,26 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-t_flags popstructone(char *s, t_flags format)
+t_flags popstructone(const char *s, t_flags format)
 {
-	while (*s)
+	int	i;
+
+	i = 0;
+	while (s[i])
 	{
-		if (*s == '-')
+		if (s[i] == '-')
 		{
 			format.minus = 1;
 			format.minusfield = minusfield(s);
 		}
-		if (*s == '0')
+		if (s[i] == '0')
 			format.zero = 1;
-		if (*s == '.')
+		if (s[i] == '.')
 		{
 			format.dot = 1;
 			format.dotfield = dotfield(s);
 		}
-	s++;
+	i++;
 	}
 	return (format);
 }
