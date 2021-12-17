@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-void	ft_putstr(char *s, int *res)
+void	ft_putstr(t_flags format, char *s, int *res)
 {
 	if (s != NULL)
 		*res += write(1, s, ft_strlen(s));
