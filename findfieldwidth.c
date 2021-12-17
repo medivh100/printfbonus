@@ -10,9 +10,9 @@ int findfieldwidth(const char *s)
 	trigger = 0;
 	while (*s)
 	{
-		if ((*s == '-' || *s == ' ' || *s == '.' || *s == '#' || validateflag(*s) == 1) && trigger == 1)
+		if ((*s == ' ' || *s == '.' || validateflag(*s) == 1) && trigger == 1)
 			break ;
-		if ((*s == '%' || *s == '0' || *s == '#' || *s == ' ') && (*(s + 1) <= '9' && *(s + 1) >= '0'))
+		if ((*s == '%' || *s == '0' || *s == '#' || *s == ' ' || *s == '-') && (*(s + 1) <= '9' && *(s + 1) >= '0'))
 			trigger = 1;
 		if ((*s >= '0' && *s <= '9') && trigger == 1)
 		{
