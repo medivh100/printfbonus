@@ -11,7 +11,7 @@ void	ft_putnbr(t_flags format, int n, int *res)
 	}
 	if (nout >= 10)
 	{
-		ft_putnbr(nout / 10, res);
+		ft_putnbr(format, nout / 10, res);
 		nout = nout % 10;
 	}
 	if (nout <= 9 && nout >= 0)
