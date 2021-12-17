@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-void	ft_putnbr(int n, int *res)
+void	ft_putnbr(t_flags format, int n, int *res)
 {
 	long long nout = (long long) n;
 	if (nout < 0)
