@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-void	parseformat(t_flags format, char **str, va_list ap)
+void	parseformat(t_flags format, char **str, va_list ap, int *count)
 {
 	int	i;
 
@@ -10,6 +10,9 @@ void	parseformat(t_flags format, char **str, va_list ap)
 	{
 		format = popstructone(str[i], format);
 		format = popstructtwo(str[i], format);
+		printformat(format, ap, count);
+		format = initstruct(format);
 		i++;
 	}
+
 }
