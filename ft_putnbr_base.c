@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-void	ft_putnbr_base(unsigned int nbr, char *base, int *res)
+void	ft_putnbr_base(t_flags format, unsigned int nbr, char *base, int *res)
 {	
 	if (nbr < 0)
 	{
