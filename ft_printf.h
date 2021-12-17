@@ -32,7 +32,7 @@ int				validateflag(int c);
 
 t_flags		 	initstruct(t_flags);
 t_flags		 	*flagformat(const char *s);
-void			parseformat(t_flags format, char **str, va_list ap);
+void			parseformat(t_flags format, char **str, va_list ap, int *count);
 int				flagnum(const char *s);
 int				stringlen(const char *s, int *index);
 char 			**memalloc(const char *s);
@@ -41,6 +41,6 @@ t_flags 		popstructone(const char *s, t_flags format);
 t_flags			popstructtwo(const char *s, t_flags format);
 int				minusfield(char *s);
 int				dotfield(char *s);
-void    		printformat(t_flags format, va_list ap);
+void    		printformat(t_flags format, va_list ap, int *count);
 
 #endif
