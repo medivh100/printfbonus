@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-void	ft_putuns(unsigned int n, int *res)
+void	ft_putuns(t_flags format, unsigned int n, int *res)
 {
 	if (n >= 10)
 	{
