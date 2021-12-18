@@ -10,7 +10,6 @@ typedef struct t_flags
 	int		flag;
 	int		fieldwidth;
 	int		minus;
-	int		minusfield;
 	int		plus;
 	int		sharp;
 	int		space;
@@ -20,19 +19,17 @@ typedef struct t_flags
 } t_flags;
 
 int     		ft_printf(const char *, ...);
-void    		dispatchflag(int, va_list, int *);
-void			ft_putnbr_base(unsigned int nbr, char *base, int *res);
-void			ft_putnbr(int n, int *res);
-void    		ft_putstr(char *s, int *);
-void    		ft_putchar(int , int *);
-void			ft_putptr(long long ptr, int *res);
-void			ft_putuns(unsigned int n, int *res);
-void			ft_putptr_base(unsigned long long nbr, char *base, int *res);
+void			ft_putnbr_base(t_flags format, unsigned int nbr, char *base, int *res);
+void			ft_putnbr(t_flags format, int n, int *res);
+void    		ft_putstr(t_flags format, char *s, int *);
+void    		ft_putchar(t_flags format, int , int *);
+void			ft_putptr(t_flags format, long long ptr, int *res);
+void			ft_putuns(t_flags format, unsigned int n, int *res);
+void			ft_putptr_base(t_flags format, unsigned long long nbr, char *base, int *res);
 int				validateflag(int c);
 
 t_flags		 	initstruct(t_flags);
-t_flags		 	*flagformat(const char *s);
-void			parseformat(t_flags format, char **str, va_list ap, int *count);
+void			parseformat(t_flags format, char *str, va_list ap, int *count);
 int				flagnum(const char *s);
 int				stringlen(const char *s, int *index);
 char 			**memalloc(const char *s);
