@@ -6,7 +6,7 @@ void	ft_putnbr(t_flags format, int n, int *res)
 	long long nout = (long long) n;
 	if (nout < 0)
 	{
-		ft_putchar('-', res);
+		printchar('-', res);
 		nout = -nout;
 	}
 	if (nout >= 10)
@@ -15,5 +15,5 @@ void	ft_putnbr(t_flags format, int n, int *res)
 		nout = nout % 10;
 	}
 	if (nout <= 9 && nout >= 0)
-		ft_putchar((nout + 48), res);
+		printchar((nout + 48), res);
 }
