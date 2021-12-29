@@ -20,7 +20,7 @@ typedef struct t_flags
 
 int     		ft_printf(const char *, ...);
 void			ft_putnbr_base(t_flags format, unsigned int nbr, char *base, int *res);
-void			ft_putnbr(t_flags format, int n, int *res);
+void			ft_putnbr(int n, int *res);
 void    		ft_putstr(t_flags format, char *s, int *);
 void    		ft_putchar(t_flags format, int , int *);
 void			ft_putptr(t_flags format, long long ptr, int *res);
@@ -37,7 +37,10 @@ char			**subflag(const char *s, char **str);
 t_flags 		popstructone(const char *s, t_flags format);
 t_flags			popstructtwo(const char *s, t_flags format);
 int				minusfield(char *s);
-int				dotfield(char *s);
+int				dotfield(const char *s);
 void    		printformat(t_flags format, va_list ap, int *count);
+void			printchar(int c, int *res);
+void			printnumberone(t_flags format, int n, int *res);
+void			printnumbertwo(t_flags format, int n, int *res);
 
 #endif
