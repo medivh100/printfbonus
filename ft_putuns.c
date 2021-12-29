@@ -9,5 +9,5 @@ void	ft_putuns(t_flags format, unsigned int n, int *res)
 		n = n % 10;
 	}
 	if (n < 10)
-		ft_putchar((n + 48), res);
+		ft_putchar(format, (n + 48), res);
 }

@@ -9,10 +9,7 @@ t_flags popstructone(const char *s, t_flags format)
 	while (s[i])
 	{
 		if (s[i] == '-')
-		{
 			format.minus = 1;
-			format.minusfield = minusfield(s);
-		}
 		if (s[i] == '0')
 			format.zero = 1;
 		if (s[i] == '.')
