@@ -14,6 +14,18 @@ int	numsize(long long n)
 	return (i);
 }
 
+int numsizedot(long long n)
+{
+	long long i;
+
+	i = 0;
+	if (n < 0)
+		n = -n;
+	if (n > 0)
+		i = (numsize(n / 10) + 1);
+	return (i);
+}
+
 int validateflag(int c)
 {
     if (c != 'c' && c != 's' && c != 'd' && c != 'i' && c != 'u' 
@@ -122,7 +134,7 @@ void	printnumbertwo(t_flags format, int n, int *res)
 
 	iter = format.fieldwidth - numsize(n);
 	if (format.dot == 1)
-		iter = format.dotfield - numsize(n);
+		iter = format.dotfield - numsizedot(n);
 	if (format.fieldwidth > 0 && format.minus == 0 && format.zero == 0 && format.plus == 0)
 		while (iter-- > 0)
 			*res += write(1, " ", 1);
@@ -151,8 +163,12 @@ void	printnumberone(t_flags format, int n, int *res)
 	iter = format.fieldwidth - numsize(n);
 	if (format.plus == 1 && format.fieldwidth == 0 && format.zero == 0 && n >= 0)
 		*res += write(1, "+", 1);
+	if ((n < 0) && (format.dotfield > 0 || format.zero == 1))
+		*res += write(1, "-", 1);
 	printnumbertwo(format, n, res);
-	if (n < 0)
+	if ((n < 0) && format.plus == 1 && format.fieldwidth != 0)
+		*res += write(1, " ", 1);
+	if ((n < 0) && format.dotfield == 0 && format.zero == 0)
 		*res += write(1, "-", 1);
 	ft_putnbr(n, res);
 	if (format.fieldwidth > 0 && format.minus == 1)
@@ -442,14 +458,15 @@ int main(void)
 	i = 0;
 	//b = &i;
 	format = initstruct(format);
-	//format.dotfield = 3;
+	//format.dotfield = 5;
 	//format.zero = 1;
 	//format.dot = 1;
-	//format.plus = 1;
-	format.fieldwidth = 3;
+	format.plus = 1;
+	//format.fieldwidth = 5;
+	//format.minus = 1;
 	//ft_putstr(format, "Hello", &i);
 
-	printf("%3d\n", -1);
+	printf("%+di\n", -1);
 	printnumberone(format, -1, &i);
 
 	//printf("%d", format.fieldwidth);
