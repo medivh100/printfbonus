@@ -42,5 +42,6 @@ void    		printformat(t_flags format, va_list ap, int *count);
 void			printchar(int c, int *res);
 void			printnumberone(t_flags format, int n, int *res);
 void			printnumbertwo(t_flags format, int n, int *res);
+int 			numsizedot(long long n);
 
 #endif
