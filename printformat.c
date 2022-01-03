@@ -8,11 +8,11 @@ void    printformat(t_flags format, va_list ap, int *count)
 	if (format.flag == 's')
 		ft_putstr(format, va_arg(ap, char *), count);
 	if (format.flag == 'd')
-		printnumber(format, va_arg(ap, int), count);
+		printnumberone(format, va_arg(ap, int), count);
 	if (format.flag == 'p')
 		ft_putptr(format, va_arg(ap, long long), count);
 	if (format.flag == 'i')
-		printnumber(format, va_arg(ap, int), count);
+		printnumberone(format, va_arg(ap, int), count);
 	if (format.flag == 'u')
 		ft_putuns(format, va_arg(ap, unsigned int), count);
 	if (format.flag == 'x')
