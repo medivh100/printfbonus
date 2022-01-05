@@ -291,15 +291,42 @@ void	ft_putstr(t_flags format, char *s, int *res)
 		*res += write(1, "(null)", 6);
 }
 
-void	ft_putuns(t_flags format, unsigned int n, int *res)
+void	printunsigned(t_flags format, unsigned int n, int *res)
+{
+	if (format.fieldwidth > 0 && format.minus == 0 && format.dot == 0)
+		while ((--format.fieldwidth - numsize(n)) >= 0)
+			*res += write(1, " ", 1);
+	if (format.fieldwidth > 0 && format.dot == 1 && format.minus == 0)
+	{
+		while ((--format.fieldwidth - format.dotfield) >= 0)
+			*res += write(1, " ", 1);
+		while ((--format.dotfield - numsize(n)) >= 0)
+			*res += write(1, "0", 1);
+	}
+	if (format.fieldwidth == 0 && format.dot == 1)
+		while ((--format.dotfield - numsize(n)) >= 0)
+			*res += write(1, "0", 1);
+	if (format.dot == 1 && format.minus == 1)
+		while ((--format.dotfield - numsize(n)) >= 0)
+			*res += write(1, "0", 1);
+	ft_putuns(n, res);
+	if (format.fieldwidth > 0 && format.minus == 1 && format.dotfield == 0)
+		while ((--format.fieldwidth - numsize(n)) >= 0)
+			*res += write(1, " ", 1);
+	if (format.fieldwidth > 0 && format.minus == 1 && format.dotfield == 1)
+		while((--format.fieldwidth - format.dotfield - numsize(n) > 1))
+			*res += write(1, " ", 1);
+}
+
+void	ft_putuns(unsigned int n, int *res)
 {
 	if (n >= 10)
 	{
-		ft_putuns(format, n / 10, res);
+		ft_putuns(n / 10, res);
 		n = n % 10;
 	}
 	if (n < 10)
-		ft_putchar(format, (n + 48), res);
+		printchar((n + 48), res);
 }
 
 int		stringlen(const char *s, int *index)
@@ -492,11 +519,11 @@ void    printformat(t_flags format, va_list ap, int *count)
 	if (format.flag == 'd')
 		printnumberone(format, va_arg(ap, int), count);
 	if (format.flag == 'p')
-		ft_putptr(format, va_arg(ap, long long), count);
+		printpointer(format, va_arg(ap, long long), count);
 	if (format.flag == 'i')
 		printnumberone(format, va_arg(ap, int), count);
 	if (format.flag == 'u')
-		ft_putuns(format, va_arg(ap, unsigned int), count);
+		printunsigned(format, va_arg(ap, unsigned int), count);
 	if (format.flag == 'x')
 		ft_putnbr_base(format, va_arg(ap, unsigned int), "0123456789abcdef", count);
 	if (format.flag == 'X')
@@ -524,21 +551,22 @@ int main(void)
 {
 	t_flags format;
 	int		i;
-	int		*b;
+	// int		*b;
+	unsigned int b = 232;
 
 	i = 0;
-	b = &i;
+	// b = &i;
 	format = initstruct(format);
-	//format.dotfield = 5;
+	format.dotfield = 10;
 	//format.zero = 1;
-	//format.dot = 1;
+	format.dot = 1;
 	//format.plus = 1;
-	format.fieldwidth = 10;
-	format.minus = 1;
+	//format.fieldwidth = 10;
+	//format.minus = 1;
 	//ft_putstr(format, "Hello", &i);
 
-	printf("%-12pi\n", b);
-	printpointer(format, 42, &i);
+	printf("%.10ui\n", b);
+	printunsigned(format, b, &i);
 
 	//printnumberone(format, -1, &i);
 
@@ -546,5 +574,8 @@ int main(void)
 	
 	return (0);
 }
+//Done
+//c s d p i u//
 
-//c d p i//
+//Not done
+//x X %//
