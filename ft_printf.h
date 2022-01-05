@@ -38,10 +38,15 @@ t_flags 		popstructone(const char *s, t_flags format);
 t_flags			popstructtwo(const char *s, t_flags format);
 int				minusfield(char *s);
 int				dotfield(const char *s);
-void    		printformat(t_flags format, va_list ap, int *count);
+void    		printformat(t_flags format, va_list ap, int *res);
 void			printchar(int c, int *res);
 void			printnumberone(t_flags format, int n, int *res);
 void			printnumbertwo(t_flags format, int n, int *res);
 int 			numsizedot(long long n);
+void			printpointer(t_flags format, long long ptr, int *res);
+char			*ft_itoa_base(long long n);
+static char		*posnumbase(long long n, char *str);
+static char		*negnumbase(long long n, char *str);
+static size_t	memsizebase(long long n);
 
 #endif
