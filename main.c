@@ -176,26 +176,97 @@ void	printnumberone(t_flags format, int n, int *res)
 			*res += write(1, " ", 1);
 }
 
-void	ft_putptr_base(t_flags format, unsigned long long nbr, char *base, int *res)
+static size_t	memsizebase(long long n)
 {
-	if (nbr < 0)
-	{
-		ft_putchar(format, '-', res);
-		nbr = -nbr;
-	}
-	if (nbr >= 16)
-	{
-		ft_putptr_base(format, nbr / 16, base, res);
-		nbr = nbr % 16;
-	}
-	if (nbr <= 16 && nbr >= 0)
-		ft_putchar(format, base[nbr], res);
+	size_t	i;
+
+	i = 0;
+	if (n < 0)
+		i = (memsizebase(-n) + 1);
+	if (n > 0)
+		i = (memsizebase(n / 16) + 1);
+	return (i);
 }
 
-void	ft_putptr(t_flags format, long long ptr, int *res)
+static char	*negnumbase(long long n, char *str)
 {
+	size_t	max;
+	const char	*base;
+
+	base = "0123456789abcdef";
+	max = memsizebase(n);
+	str[max] = '\0';
+	while (max > 0)
+	{
+		if (n < 0)
+		{
+			str[0] = '-';
+			n = -n;
+			max--;
+		}
+		str[max] = base[n % 16];
+		n = n / 16;
+		max--;
+	}
+	return (str);
+}
+
+static char	*posnumbase(long long n, char *str)
+{
+	size_t		max;
+	const char	*base;
+
+	base = "0123456789abcdef";
+	max = memsizebase(n);
+	str[max] = '\0';
+	while (max > 0)
+	{
+		str[max - 1] = base[n % 16];
+		n = n / 16;
+		max--;
+	}
+	return (str);
+}
+
+char	*ft_itoa_base(long long n)
+{
+	char	*str;
+	size_t	max;
+
+	max = memsizebase(n);
+	if (n == 0)
+	{
+		str = malloc(2 * sizeof(char));
+		str[0] = '0';
+		str[1] = '\0';
+		return (str);
+	}
+	str = malloc((memsizebase(n) + 1) * sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	if (n < 0)
+		str = negnumbase(n, str);
+	else
+		str = posnumbase(n, str);
+	return (str);
+}
+
+void	printpointer(t_flags format, long long ptr, int *res)
+{
+	int		iter;
+	char	*str;
+
+	str = ft_itoa_base(ptr);
+	iter = format.fieldwidth - (ft_strlen(str) + 2);
+	if (iter > 0 && format.minus == 0)
+		while (iter-- > 0)
+			*res += write(1, " ", 1);
 	*res += write(1, "0x", 2);
-	ft_putptr_base(format, (unsigned long long) ptr, "0123456789abcdef", res);
+	*res += write(1, str, ft_strlen(str));
+	free(str);
+	if (iter > 0 && format.minus == 1)
+		while (iter-- > 0)
+			*res += write(1, " ", 1);
 }
 
 void	ft_putstr(t_flags format, char *s, int *res)
@@ -453,23 +524,27 @@ int main(void)
 {
 	t_flags format;
 	int		i;
-	//int		*b;
+	int		*b;
 
 	i = 0;
-	//b = &i;
+	b = &i;
 	format = initstruct(format);
 	//format.dotfield = 5;
 	//format.zero = 1;
 	//format.dot = 1;
-	format.plus = 1;
-	//format.fieldwidth = 5;
-	//format.minus = 1;
+	//format.plus = 1;
+	format.fieldwidth = 10;
+	format.minus = 1;
 	//ft_putstr(format, "Hello", &i);
 
-	printf("%+di\n", -1);
-	printnumberone(format, -1, &i);
+	printf("%-12pi\n", b);
+	printpointer(format, 42, &i);
+
+	//printnumberone(format, -1, &i);
 
 	//printf("%d", format.fieldwidth);
 	
 	return (0);
 }
+
+//c d p i//
