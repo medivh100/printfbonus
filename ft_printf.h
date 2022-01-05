@@ -23,8 +23,7 @@ void			ft_putnbr_base(t_flags format, unsigned int nbr, char *base, int *res);
 void			ft_putnbr(int n, int *res);
 void    		ft_putstr(t_flags format, char *s, int *);
 void    		ft_putchar(t_flags format, int , int *);
-void			ft_putptr(t_flags format, long long ptr, int *res);
-void			ft_putuns(t_flags format, unsigned int n, int *res);
+void			ft_putuns(unsigned int n, int *res);
 void			ft_putptr_base(t_flags format, unsigned long long nbr, char *base, int *res);
 int				validateflag(int c);
 
@@ -48,5 +47,6 @@ char			*ft_itoa_base(long long n);
 static char		*posnumbase(long long n, char *str);
 static char		*negnumbase(long long n, char *str);
 static size_t	memsizebase(long long n);
+void			printunsigned(t_flags format, unsigned int n, int *res);
 
 #endif
