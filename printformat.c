@@ -14,7 +14,7 @@ void    printformat(t_flags format, va_list ap, int *res)
 	if (format.flag == 'i')
 		printnumberone(format, va_arg(ap, int), res);
 	if (format.flag == 'u')
-		ft_putuns(format, va_arg(ap, unsigned int), res);
+		printunsigned(format, va_arg(ap, unsigned int), res);
 	if (format.flag == 'x')
 		ft_putnbr_base(format, va_arg(ap, unsigned int), "0123456789abcdef", res);
 	if (format.flag == 'X')
