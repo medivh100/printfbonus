@@ -48,5 +48,7 @@ static char		*posnumbase(long long n, char *str);
 static char		*negnumbase(long long n, char *str);
 static size_t	memsizebase(long long n);
 void			printunsigned(t_flags format, unsigned int n, int *res);
+void			printhex(t_flags format, unsigned int nbr, char *base, int *res);
+void			printox(char *base, int *res);
 
 #endif
