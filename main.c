@@ -92,6 +92,29 @@ void	ft_putchar(t_flags format, int c, int *res)
 		while (--format.fieldwidth > 0)
 			*res += write(1, " ", 1);
 }
+//0 option without dot option == printing of minfieldwidth zeros
+//0 option with dot option == printing of minfieldwidth - dotfield spaces then dotfield zeros
+//if # option used 0x will be printed before any zeros printed
+//if minus option is used minusfieldwidth - dotfield (-2 if # option is used) spaces are printed on the right hand side of the result
+//if minfieldwidth given print minfieldwidth spaces - numsize - 2 if # option is used
+//if dotfield value given without minfieldwidth print dotfield - numsize. if used with # option print 0x at the start of the string
+
+void	printox(char *base, int *res)
+{
+	*res += write(1, "0", 1);
+	if (base[11] == 'a')
+		*res += write(1, "x", 1);
+	else
+		*res += write(1, "X", 1);
+}
+
+void	printhex(t_flags format, unsigned int nbr, char *base, int *res)
+{
+	if (format.dot == 1 && format.sharp == 1 && format.fieldwidth == 0)
+		printox(base, res);
+	
+
+}
 
 void	ft_putnbr_base(t_flags format, unsigned int nbr, char *base, int *res)
 {	
@@ -525,9 +548,9 @@ void    printformat(t_flags format, va_list ap, int *count)
 	if (format.flag == 'u')
 		printunsigned(format, va_arg(ap, unsigned int), count);
 	if (format.flag == 'x')
-		ft_putnbr_base(format, va_arg(ap, unsigned int), "0123456789abcdef", count);
+		printhex(format, va_arg(ap, unsigned int), "0123456789abcdef", count);
 	if (format.flag == 'X')
-		ft_putnbr_base(format, va_arg(ap, unsigned int), "0123456789ABCDEF", count);
+		printhex(format, va_arg(ap, unsigned int), "0123456789ABCDEF", count);
 	if (format.flag == '%')
 		count += write(1, "%", 1);
 }
@@ -539,6 +562,7 @@ void	parseformat(t_flags format, char *str, va_list ap, int *count)
 	free(str);
 	printformat(format, ap, count);
 }
+
 // "-0."
 // "# +" + minfieldwidth
 // 0 is ignored when - is present
@@ -549,24 +573,24 @@ void	parseformat(t_flags format, char *str, va_list ap, int *count)
 //dot doesnt count space or sign when used
 int main(void)
 {
-	t_flags format;
-	int		i;
+	// t_flags format;
+	// int		i;
 	// int		*b;
-	unsigned int b = 232;
+	//unsigned int b = 232;
 
-	i = 0;
+	//i = 0;
 	// b = &i;
-	format = initstruct(format);
-	format.dotfield = 10;
+	// format = initstruct(format);
+	// format.dotfield = 10;
 	//format.zero = 1;
-	format.dot = 1;
+	//format.dot = 1;
 	//format.plus = 1;
 	//format.fieldwidth = 10;
 	//format.minus = 1;
 	//ft_putstr(format, "Hello", &i);
 
-	printf("%.10ui\n", b);
-	printunsigned(format, b, &i);
+	printf("%.5Xi\n", 42);
+	//printunsigned(format, b, &i);
 
 	//printnumberone(format, -1, &i);
 
