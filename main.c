@@ -2,6 +2,18 @@
 #include "libft.h"
 #include "ft_printf.h"
 
+int	memsizebase(long long n)
+{
+	size_t	i;
+
+	i = 0;
+	if (n < 0)
+		i = (memsizebase(-n) + 1);
+	if (n > 0)
+		i = (memsizebase(n / 16) + 1);
+	return (i);
+}
+
 int	numsize(long long n)
 {
 	long long	i;
@@ -50,31 +62,31 @@ t_flags initstruct(t_flags format)
 
 int	flagnum(const char *s)
 {
-	int count;
+	int res;
 	int trigger;
 
-	count = 0;
+	res = 0;
 	trigger = 0;
 	while (*s)
 	{
-		if (*s == '%' && *(s + 1) == '%')
+		if (*s == '%' && *(s + 1) == '%' && trigger == 0)
 		{
 			s += 2;
-			count++;
+			res++;
 		}
-		if (*s == '%')
+		if (*s == '%' && trigger == 0)
 		{
 			trigger = 1;
 			s++;
 		}
 		if (trigger == 1 && validateflag(*s) == 1)
 		{
-			count++;
+			res++;
 			trigger = 0;
 		}
 		s++;
 	}
-	return (count);
+	return (res);
 }
 
 void	printchar(int c, int *res)
@@ -85,35 +97,120 @@ void	printchar(int c, int *res)
 void	ft_putchar(t_flags format, int c, int *res)
 {
 	if (format.fieldwidth > 0 && format.minus == 0)
-		while (--format.fieldwidth > 0)
+		while ((--format.fieldwidth - 1) >= 0)
 			*res += write(1, " ", 1);
 	*res += write(1, &c, 1);
 	if (format.fieldwidth > 0 && format.minus == 1)
-		while (--format.fieldwidth > 0)
+		while ((--format.fieldwidth - 1) >= 0)
 			*res += write(1, " ", 1);
 }
-//0 option without dot option == printing of minfieldwidth zeros
-//0 option with dot option == printing of minfieldwidth - dotfield spaces then dotfield zeros
-//if # option used 0x will be printed before any zeros printed
-//if minus option is used minusfieldwidth - dotfield (-2 if # option is used) spaces are printed on the right hand side of the result
-//if minfieldwidth given print minfieldwidth spaces - numsize - 2 if # option is used
-//if dotfield value given without minfieldwidth print dotfield - numsize. if used with # option print 0x at the start of the string
 
 void	printox(char *base, int *res)
 {
 	*res += write(1, "0", 1);
-	if (base[11] == 'a')
+	if (base[10] == 'a')
 		*res += write(1, "x", 1);
 	else
 		*res += write(1, "X", 1);
 }
 
+void	printhexsharp(t_flags format, unsigned int nbr, char *base, int *res)
+{
+	if (format.dot == 1 && format.fieldwidth == 0)
+	{
+		printox(base, res);
+		while ((--format.dotfield - numsize(nbr) - 2) >= 0)
+			*res += write(1, "0", 1);
+	}
+	if (format.dot == 1 && format.fieldwidth > 0 && format.minus == 0)
+	{
+		while ((--format.fieldwidth - format.dotfield - numsize(nbr) - 2) >= 0)
+			*res += write(1, " ", 1);
+		printox(base, res);
+		while (--format.dotfield - numsize(nbr) - 2)
+			*res += write(1, "0", 1);
+	}
+	if (format.dot == 0 && format.fieldwidth > 0 && format.minus == 0 && format.zero == 0)
+	{
+		while ((--format.fieldwidth - numsize(nbr) - 2) >= 0)
+				*res += write(1, " ", 1);
+		printox(base, res);
+	}
+	if (format.dot == 0 && format.fieldwidth > 0 && format.minus == 0 && format.zero == 1)
+	{
+		printox(base, res);
+		while ((--format.fieldwidth - numsize(nbr) - 2) >= 0)
+			*res += write(1, "0", 1);
+	}
+}
+
+void	printhexreg(t_flags format, unsigned int nbr, int *res)
+{
+	if (format.dot == 1 && format.fieldwidth == 0)
+		while (--format.dotfield - memsizebase(nbr) >= 0)
+			*res += write(1, "0", 1);
+	if (format.dot == 1 && format.fieldwidth > 0)
+	{
+		while ((--format.fieldwidth - format.dotfield) >= 0)
+			*res += write(1, " ", 1);
+		while ((--format.dotfield - memsizebase(nbr)) >= 0)
+			*res += write(1, "0", 1);
+	}
+	if (format.dot == 0 && format.fieldwidth > 0)
+	{
+		if (format.zero == 0)
+			while ((--format.fieldwidth - memsizebase(nbr)) >= 0)
+				*res += write(1, " ", 1);
+		if (format.zero == 1)
+			while ((--format.fieldwidth - memsizebase(nbr)) >= 0)
+				*res += write(1, "0", 1);
+	}
+}
+
+void	printhexminusopt(t_flags format, unsigned int nbr, char *base, int *res)
+{
+	if (format.dot == 1 && format.sharp == 0)
+		while ((--format.dotfield - memsizebase(nbr)) >= 0)
+			*res += write(1, "0", 1);
+	if (format.dot == 1 && format.sharp == 1)
+	{
+		printox(base, res);
+		while ((--format.dotfield - memsizebase(nbr)) >= 0)
+			*res += write(1, "0", 1);
+	}
+	if (format.dot == 0 && format.sharp == 1)
+		printox(base, res);
+}
+
+void	printhexminus(t_flags format, unsigned int nbr, int *res)
+{
+	if (format.dot == 0 && format.fieldwidth > 0 && format.sharp == 0)
+		while ((--format.fieldwidth - memsizebase(nbr)) >= 0)
+			*res += write(1, " ", 1);
+	if (format.dot == 0 && format.fieldwidth > 0 && format.sharp == 1)
+		while ((--format.fieldwidth - memsizebase(nbr) - 2) >= 0)
+			*res += write(1, " ", 1);
+	if (format.dot == 1 && format.fieldwidth > 0 && format.sharp == 0)
+		while ((--format.fieldwidth - format.dotfield) >= 0)
+			*res += write(1, " ", 1);
+	if (format.dot == 1 && format.fieldwidth > 0 && format.sharp == 1)
+		while ((--format.fieldwidth - format.dotfield - memsizebase(nbr)) >= 0)
+			*res += write(1, " ", 1);
+}
+
 void	printhex(t_flags format, unsigned int nbr, char *base, int *res)
 {
-	if (format.dot == 1 && format.sharp == 1 && format.fieldwidth == 0)
+	if (format.sharp == 1 && format.minus == 0)
+		printhexsharp(format, nbr, base, res);
+	if (format.sharp == 0 && format.minus == 0)
+		printhexreg(format, nbr, res);
+	if (format.minus == 1)
+		printhexminusopt(format, nbr, base, res);
+	if (format.sharp == 1 && format.dot == 0 && format.fieldwidth == 0 && format.minus == 0)
 		printox(base, res);
-	
-
+	ft_putnbr_base(format, nbr, base, res);
+	if (format.minus == 1)
+		printhexminus(format, nbr, res);
 }
 
 void	ft_putnbr_base(t_flags format, unsigned int nbr, char *base, int *res)
@@ -145,73 +242,73 @@ void	ft_putnbr(int n, int *res)
 	if (nout <= 9 && nout >= 0)
 		printchar((nout + 48), res);
 }
-// 0 is ignored when - is present
-//+ in front of 0 padding when 0 and + used
-//space in front of padding when 0 and space used
-//space ignored when + is used
-//minus sign in front of 0 padding when dot is used
-//dot doesnt count space or sign when used
+
+void	printnumberthree(t_flags format, int n, int *res)
+{
+	if (format.space == 1 || format.plus == 1)
+	{
+		while ((--format.fieldwidth - format.dotfield - 1) >= 0)
+			*res += write(1, " ", 1);
+		if (n >= 0 == format.plus == 1)
+			*res += write(1, "+", 1);
+		else if (n >= 0 && format.space == 1)
+			*res += write(1, " ", 1);
+		else if (n < 0 == (format.space == 1 || format.plus == 1))
+			*res += write(1, "-", 1);
+	}
+	else
+		while ((--format.fieldwidth - format.dotfield - numsizedot(n)) >= 0)
+			*res += write(1, " ", 1);
+	while ((--format.dotfield - numsizedot(n)) >= 0)
+		*res += write(1, "0", 1);
+}
+
 void	printnumbertwo(t_flags format, int n, int *res)
 {
-	int iter;
-
-	iter = format.fieldwidth - numsize(n);
-	if (format.dot == 1)
-		iter = format.dotfield - numsizedot(n);
-	if (format.fieldwidth > 0 && format.minus == 0 && format.zero == 0 && format.plus == 0)
-		while (iter-- > 0)
-			*res += write(1, " ", 1);
-	if (format.fieldwidth > 0 && format.plus == 1 && format.zero == 0 && (format.space == 1 || format.space == 0))
-	{
-		while (iter-- > 1)
-			*res += write(1, " ", 1);
-		if (n >= 0)
-			*res += write(1, "+", 1);
-	}
-	if (format.fieldwidth > 0 && format.space == 1 && format.plus == 0)
-		while (iter-- > 0)
-			*res += write(1, " ", 1);
-	if (format.fieldwidth > 0 && format.zero == 1)
-		while (iter-- > 0)
-			*res += write(1, "0", 1);
-	if (format.fieldwidth == 0 && format.dot == 1 && format.dotfield > 0)
-		while (iter-- > 0)
-			*res += write(1, "0", 1);
+		if (format.fieldwidth > 0 && format.zero == 0 && format.dot == 0)
+		{
+			if (format.plus == 1 || format.space == 1)
+				while ((--format.fieldwidth - numsizedot(n) - 1) >= 0)
+					*res += write(1, " ", 1);
+			else
+				while ((--format.fieldwidth - numsizedot(n)) >= 0)
+					*res += write(1, " ", 1);
+		}
+		if (format.zero == 1 && format.fieldwidth > 0 && format.plus == 0 && format.space == 0 && format.dot == 0)
+			while ((--format.fieldwidth - numsize(n) - 1) >= 0)
+				*res += write(1, "0", 1);
+		if (format.zero == 1 && format.fieldwidth > 0 && format.dot == 0 && (format.space == 1 || format.plus == 1))
+		{
+			if (format.plus == 1 && n >= 0)
+				*res += write(1, "+", 1);
+			if (n < 0)
+				*res += write(1, "-", 1);
+			if (format.space == 1 && n >= 0)
+				*res += write(1, " ", 1);
+			while ((--format.fieldwidth - numsizedot(n) - 1) >= 0)
+				*res += write(1, "0", 1);
+		}
+		if (format.dot == 1 && format.fieldwidth > 0)
+			printnumberthree(format, n, res);
 }
 
 void	printnumberone(t_flags format, int n, int *res)
 {
-	int iter;
-
-	iter = format.fieldwidth - numsize(n);
-	if (format.plus == 1 && format.fieldwidth == 0 && format.zero == 0 && n >= 0)
-		*res += write(1, "+", 1);
-	if ((n < 0) && (format.dotfield > 0 || format.zero == 1))
-		*res += write(1, "-", 1);
-	printnumbertwo(format, n, res);
-	if ((n < 0) && format.plus == 1 && format.fieldwidth != 0)
-		*res += write(1, " ", 1);
-	if ((n < 0) && format.dotfield == 0 && format.zero == 0)
-		*res += write(1, "-", 1);
+	if (format.minus == 0)
+		printnumbertwo(format, n, res);
+	if (format.dot == 0 && format.zero == 0)
+		if (n < 0)
+			*res += write(1, "-", 1);
 	ft_putnbr(n, res);
-	if (format.fieldwidth > 0 && format.minus == 1)
-		while (iter-- > 0)
+	if (format.minus == 1 && format.fieldwidth > 0 && format.dot == 0)
+		while ((--format.fieldwidth - numsize(n)) >= 0)
 			*res += write(1, " ", 1);
+	if (format.minus == 1 && format.fieldwidth > 0 && format.dot == 1)
+		while ((--format.fieldwidth - format.dotfield - numsizedot(n)) >= 0)
+			*res += write(1, " ", 1); 
 }
 
-static size_t	memsizebase(long long n)
-{
-	size_t	i;
-
-	i = 0;
-	if (n < 0)
-		i = (memsizebase(-n) + 1);
-	if (n > 0)
-		i = (memsizebase(n / 16) + 1);
-	return (i);
-}
-
-static char	*negnumbase(long long n, char *str)
+char	*negnumbase(long long n, char *str)
 {
 	size_t	max;
 	const char	*base;
@@ -234,7 +331,7 @@ static char	*negnumbase(long long n, char *str)
 	return (str);
 }
 
-static char	*posnumbase(long long n, char *str)
+char	*posnumbase(long long n, char *str)
 {
 	size_t		max;
 	const char	*base;
@@ -276,38 +373,36 @@ char	*ft_itoa_base(long long n)
 
 void	printpointer(t_flags format, long long ptr, int *res)
 {
-	int		iter;
 	char	*str;
 
 	str = ft_itoa_base(ptr);
-	iter = format.fieldwidth - (ft_strlen(str) + 2);
-	if (iter > 0 && format.minus == 0)
-		while (iter-- > 0)
+	if (format.fieldwidth > 0 && format.minus == 0)
+		while ((--format.fieldwidth - ft_strlen(str) + 2) >= 0)
 			*res += write(1, " ", 1);
 	*res += write(1, "0x", 2);
 	*res += write(1, str, ft_strlen(str));
+	if (format.fieldwidth > 0 && format.minus == 1)
+		while ((--format.fieldwidth - ft_strlen(str) - 2) >= 0)
+			*res += write(1, " ", 0);
 	free(str);
-	if (iter > 0 && format.minus == 1)
-		while (iter-- > 0)
-			*res += write(1, " ", 1);
 }
 
 void	ft_putstr(t_flags format, char *s, int *res)
 {
-	int iter;
-
-	iter = format.fieldwidth - ft_strlen(s);
 	if (s != NULL)
 	{
-		if (format.fieldwidth > 0 && format.minus == 0)
-			while (iter-- > 0)
+		if (format.fieldwidth > 0 && format.minus == 0 && format.dot == 0)
+			while ((--format.fieldwidth - ft_strlen(s)) >= 0)
+				*res += write(1, " ", 1);
+		if (format.fieldwidth > 0 && format.dot == 1 && format.minus == 0)
+			while ((--format.fieldwidth - ft_strlen(s) - format.dotfield))
 				*res += write(1, " ", 1);
 		if (format.dot == 1)
 			*res += write(1, s, format.dotfield);
 		else
 			*res += write(1, s, ft_strlen(s));
 		if (format.fieldwidth > 0 && format.minus == 1)
-			while (iter-- > 0)
+			while ((--format.fieldwidth - ft_strlen(s)) >= 0)
 				*res += write(1, " ", 1);
 	}
 	else if (s == NULL)
@@ -337,7 +432,7 @@ void	printunsigned(t_flags format, unsigned int n, int *res)
 		while ((--format.fieldwidth - numsize(n)) >= 0)
 			*res += write(1, " ", 1);
 	if (format.fieldwidth > 0 && format.minus == 1 && format.dotfield == 1)
-		while((--format.fieldwidth - format.dotfield - numsize(n) > 1))
+		while ((--format.fieldwidth - format.dotfield - numsize(n)) >= 0)
 			*res += write(1, " ", 1);
 }
 
@@ -352,13 +447,27 @@ void	ft_putuns(unsigned int n, int *res)
 		printchar((n + 48), res);
 }
 
+void	printpercent(t_flags format, int *res)
+{
+	if (format.fieldwidth > 0 && format.zero == 0 && format.minus == 0)
+		while ((--format.fieldwidth - 1) >= 0)
+			*res += write(1, " ", 1);
+	if (format.fieldwidth > 0 && format.zero == 1 && format.minus == 0)
+		while ((--format.fieldwidth - 1) >= 0)
+			*res += write(1, "0", 1);
+	*res += write(1, "%", 1);
+	if (format.fieldwidth > 0 && format.minus == 1)
+		while ((--format.fieldwidth - 1) >= 0)
+			*res += write(1, " ", 1);
+}
+
 int		stringlen(const char *s, int *index)
 {
 	int i;
-	int	count;
+	int	res;
 
 	i = *index;
-	count = 0;
+	res = 0;
 	while (s[i])
 	{
 		if (s[i] == '%')
@@ -366,7 +475,7 @@ int		stringlen(const char *s, int *index)
 			while (validateflag(s[i + 1]) == 0)
 			{
 				i++;
-				count++;
+				res++;
 			}
 		}
 		if (validateflag(s[i]) == 1)
@@ -374,21 +483,21 @@ int		stringlen(const char *s, int *index)
 		i++;
 	}
 	*index = i + 1;
-	return (count + 1);
+	return (res + 1);
 }
 
 char **memalloc(const char *s)
 {
 	char **rstr;
-	int count;
+	int res;
 	int index;
 	int i;
 
 	i = 0;
 	index = 0;
-	count = flagnum(s);
-	rstr = malloc((count + 1) * sizeof(char *));
-	while (i < count)
+	res = flagnum(s);
+	rstr = malloc((res + 1) * sizeof(char *));
+	while (i < res)
 	{
 		rstr[i] = malloc((stringlen(s, &index) + 1) * sizeof(char));
 		i++;
@@ -397,50 +506,47 @@ char **memalloc(const char *s)
 	return (rstr);
 }
 
-char	**subflag(const char *s, char **str)
+char	*findformat(const char *s,char *str, int *index)
 {
-	int		index;
-	int		i;
-	int		j;
+	int j;
+	int trigger;
+	int	i;
 
-	str = memalloc(s);
-	i = 0;
 	j = 0;
-	index = 0;
-	while (s[index])
+	trigger = 0;
+	i = *index;
+	while (s[i])
 	{
-		if (s[index] == '%')
+		if (s[i] == '%')
 		{
-			while (s[index + i] != ' ')
-			{
-				str[j][i] = s[index + i];
-				i++;
-				if (s[index + i] == '%')
-					break ;
-			}
-		i = 0;
-		j++;
+			str[j++] = '%';
+			i++;
+			trigger = 1;
+			while (validateflag(s[i]) == 0 && trigger == 1)
+				str[j++] = s[i++];
+			if (validateflag(s[i]) == 1 && trigger == 1)
+				str[j] = s[i];
 		}
-	index++;
+		if (validateflag(s[i]) == 1 && trigger == 1)
+			break ;
+		i++;
 	}
+	*index = i + 1;
 	return (str);
 }
 
-t_flags	*flagformat(const char *s)
+char	**subflag(const char *s, char **str)
 {
-	int				i;
-	int				count;
-	t_flags			*format;
+	int	iter;
+	int	limit;
+	int index;
 
-	format = malloc((flagnum(s)) * sizeof (t_flags));
-	i = 0;
-	count = flagnum(s);
-	while (i < count)
-	{
-		format[i] = initstruct(format[i]);
-		i++;
-	}
-	return (format);
+	iter = -1;
+	limit = flagnum(s);
+	index = 0;
+	while (++iter < limit)
+		str[iter] = findformat(s,str[iter], &index);
+	return (str);
 }
 
 int	dotfield(const char *s)
@@ -481,7 +587,7 @@ int findfieldwidth(const char *s)
 		if ((*s == ' ' || *s == '.' || validateflag(*s) == 1) && trigger == 1)
 			break ;
 		if ((*s == '%' || *s == '0' || *s == '#' || *s == ' '
-			|| *s == '-') && (*(s + 1) <= '9' && *(s + 1) >= '0'))
+			|| *s == '-' || *s == '+') && (*(s + 1) <= '9' && *(s + 1) >= '1'))
 			trigger = 1;
 		if ((*s >= '0' && *s <= '9') && trigger == 1)
 		{
@@ -502,7 +608,7 @@ t_flags popstructone(const char *s, t_flags format)
 	{
 		if (s[i] == '-')
 			format.minus = 1;
-		if (s[i] == '0')
+		if (s[i] == '0' && (s[i - 1] == '%' || s[i - 1] == '.' || s[i - 1] == '#' || s[i - 1] == ' ' || s[i - 1] == '-'))
 			format.zero = 1;
 		if (s[i] == '.')
 		{
@@ -516,51 +622,96 @@ t_flags popstructone(const char *s, t_flags format)
 
 t_flags	popstructtwo(const char *s, t_flags format)
 {
-	while (*s)
+	int	i;
+
+	i = 0;
+	while (s[i])
 	{
-		if (*s >= 0 && *s <= 9)
+		if (s[i] >= '0' && s[i] <= '9')
 			format.fieldwidth = findfieldwidth(s);
-		if (*s == '+')
+		if (s[i] == '+')
 			format.plus = 1;
-		if (*s == '#')
+		if (s[i] == '#')
 			format.sharp = 1;
-		if (*s == ' ')
+		if (s[i] == ' ')
 			format.space = 1;
-		if (validateflag(*s) == 1)
-			format.flag = *s;
-		s++;
+		if (validateflag(s[i]) == 1)
+			format.flag = s[i];
+		i++;
 	}
 	return (format);
 }
 
-void    printformat(t_flags format, va_list ap, int *count)
+void    printformat(t_flags format, va_list ap, int *res)
 {
     if (format.flag == 'c')
-		ft_putchar(format, va_arg(ap, int), count);
+		ft_putchar(format, va_arg(ap, int), res);
 	if (format.flag == 's')
-		ft_putstr(format, va_arg(ap, char *), count);
+		ft_putstr(format, va_arg(ap, char *), res);
 	if (format.flag == 'd')
-		printnumberone(format, va_arg(ap, int), count);
+		printnumberone(format, va_arg(ap, int), res);
 	if (format.flag == 'p')
-		printpointer(format, va_arg(ap, long long), count);
+		printpointer(format, va_arg(ap, long long), res);
 	if (format.flag == 'i')
-		printnumberone(format, va_arg(ap, int), count);
+		printnumberone(format, va_arg(ap, int), res);
 	if (format.flag == 'u')
-		printunsigned(format, va_arg(ap, unsigned int), count);
+		printunsigned(format, va_arg(ap, unsigned int), res);
 	if (format.flag == 'x')
-		printhex(format, va_arg(ap, unsigned int), "0123456789abcdef", count);
+		printhex(format, va_arg(ap, unsigned int), "0123456789abcdef", res);
 	if (format.flag == 'X')
-		printhex(format, va_arg(ap, unsigned int), "0123456789ABCDEF", count);
+		printhex(format, va_arg(ap, unsigned int), "0123456789ABCDEF", res);
 	if (format.flag == '%')
-		count += write(1, "%", 1);
+		printpercent(format, res);
 }
 
-void	parseformat(t_flags format, char *str, va_list ap, int *count)
+void	parseformat(t_flags format, char *str, va_list ap, int *res)
 {
 	format = popstructone(str, format);
 	format = popstructtwo(str, format);
-	free(str);
-	printformat(format, ap, count);
+	printformat(format, ap, res);
+}
+
+void	printall(va_list ap, const char *s, char **formatstrings, int *res)
+{
+	t_flags format;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (s[j])
+	{
+		while (s[j] == '%')
+		{
+			format = initstruct(format);
+			parseformat(format, formatstrings[i], ap, res);
+			j += ft_strlen(formatstrings[i]);
+			free(formatstrings[i]);
+			i++;
+			if (s[j] == '\0')
+				break;
+		}
+		if (s[j] == '\0')
+			break ;
+		if (s[j] != '%')
+			printchar(s[j], res);
+		j++;
+	}
+}
+
+int	ft_printf(const char *s, ...)
+{
+	int		res;
+	va_list	ap;
+	char **formatstrings;
+
+	formatstrings = memalloc(s);
+	formatstrings = subflag(s, formatstrings);
+	res = 0;
+	va_start(ap, s);
+	printall(ap, s, formatstrings, &res);
+	va_end(ap);
+	return (res);
 }
 
 // "-0."
@@ -573,23 +724,18 @@ void	parseformat(t_flags format, char *str, va_list ap, int *count)
 //dot doesnt count space or sign when used
 int main(void)
 {
-	// t_flags format;
-	// int		i;
+	//t_flags format;
+	int		i;
 	// int		*b;
 	//unsigned int b = 232;
 
-	//i = 0;
-	// b = &i;
-	// format = initstruct(format);
-	// format.dotfield = 10;
-	//format.zero = 1;
-	//format.dot = 1;
-	//format.plus = 1;
-	//format.fieldwidth = 10;
-	//format.minus = 1;
-	//ft_putstr(format, "Hello", &i);
+	//format.fieldwidth = 5;
 
-	printf("%.5Xi\n", 42);
+	i = 0;
+
+	printf("%0 15di\n", 22);
+	ft_printf("% 015d", 22);
+
 	//printunsigned(format, b, &i);
 
 	//printnumberone(format, -1, &i);
@@ -598,8 +744,3 @@ int main(void)
 	
 	return (0);
 }
-//Done
-//c s d p i u//
-
-//Not done
-//x X %//
