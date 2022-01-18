@@ -1,10 +1,10 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-void    printformat(t_flags format, va_list ap, int *res)
+void	printformat(t_flags format, va_list ap, int *res)
 {
     if (format.flag == 'c')
-		ft_putchar(format, va_arg(ap, char), res);
+		ft_putchar(format, va_arg(ap, int), res);
 	if (format.flag == 's')
 		ft_putstr(format, va_arg(ap, char *), res);
 	if (format.flag == 'd')
@@ -16,9 +16,9 @@ void    printformat(t_flags format, va_list ap, int *res)
 	if (format.flag == 'u')
 		printunsigned(format, va_arg(ap, unsigned int), res);
 	if (format.flag == 'x')
-		ft_putnbr_base(format, va_arg(ap, unsigned int), "0123456789abcdef", res);
+		printhex(format, va_arg(ap, unsigned int), "0123456789abcdef", res);
 	if (format.flag == 'X')
-		ft_putnbr_base(format, va_arg(ap, unsigned int), "0123456789ABCDEF", res);
+		printhex(format, va_arg(ap, unsigned int), "0123456789ABCDEF", res);
 	if (format.flag == '%')
-		ft_putchar(format, va_arg(ap, char), res);
+		printpercent(format, res);
 }
