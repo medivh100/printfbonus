@@ -733,8 +733,8 @@ int main(void)
 
 	i = 0;
 
-	printf("%0 15di\n", 22);
-	ft_printf("% 015d", 22);
+	printf("%0 15.10di\n", -22);
+	ft_printf("% 015.10d", -22);
 
 	//printunsigned(format, b, &i);
 

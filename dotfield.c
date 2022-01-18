@@ -1,7 +1,7 @@
-int	dotfield(char *s)
+int	dotfield(const char *s)
 {
-	int		num;
-	int		trigger;
+	int	num;
+	int	trigger;
 
 	num = 0;
 	trigger = 0;
@@ -15,7 +15,7 @@ int	dotfield(char *s)
 			trigger = 1;
 			s++;
 		}
-		if ((*s > '0' && *s < '9') && trigger == 1)
+		if ((*s >= '0' && *s <= '9') && trigger == 1)
 		{
 			num = num * 10;
 			num += *s - 48;
