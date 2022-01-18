@@ -1,16 +1,17 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-// Any combination of flags "-0." and minimum field width for any conversion    //
-// All the following flags "# +"                                                //
-// main function, initializing va_list ap to be passed to strcreate             //
 int	ft_printf(const char *s, ...)
 {
 	int		res;
 	va_list	ap;
-	t_flags format;
-	format = initstruct(format);
+	char	**formatstrings;
+
+	formatstrings = memalloc(s);
+	formatstrings = subflag(s, formatstrings);
 	res = 0;
 	va_start(ap, s);
-	return (0);
+	printall(ap, s, formatstrings, &res);
+	va_end(ap);
+	return (res);
 }
