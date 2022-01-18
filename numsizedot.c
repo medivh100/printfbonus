@@ -1,9 +1,9 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-int numsizedot(long long n)
+int	numsizedot(long long n)
 {
-	long long i;
+	long long	i;
 
 	i = 0;
 	if (n < 0)
