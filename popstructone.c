@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-t_flags popstructone(const char *s, t_flags format)
+t_flags	popstructone(const char *s, t_flags format)
 {
 	int	i;
 
@@ -10,7 +10,7 @@ t_flags popstructone(const char *s, t_flags format)
 	{
 		if (s[i] == '-')
 			format.minus = 1;
-		if (s[i] == '0')
+		if (s[i] == '0' && (s[i - 1] == '%' || s[i - 1] == '.' || s[i - 1] == '#' || s[i - 1] == ' ' || s[i - 1] == '-' || s[i - 1] == '+'))
 			format.zero = 1;
 		if (s[i] == '.')
 		{
