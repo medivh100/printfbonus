@@ -19,7 +19,7 @@ typedef struct t_flags
 } t_flags;
 
 int     		ft_printf(const char *, ...);
-void			ft_putnbr_base(t_flags format, unsigned int nbr, char *base, int *res);
+void			ft_putnbr_base(unsigned int nbr, char *base, int *res);
 void			ft_putnbr(int n, int *res);
 void    		ft_putstr(t_flags format, char *s, int *);
 void    		ft_putchar(t_flags format, int , int *);
@@ -41,14 +41,20 @@ void    		printformat(t_flags format, va_list ap, int *res);
 void			printchar(int c, int *res);
 void			printnumberone(t_flags format, int n, int *res);
 void			printnumbertwo(t_flags format, int n, int *res);
+void			printnumberthree(t_flags format, int n, int *res);
+void			printnumminustwo(t_flags format, int n, int *res);
+void			printnumminus(t_flags format, int n, int *res);
+void			printnumzero(t_flags format, int n, int *res);
 int 			numsizedot(long long n);
 void			printpointer(t_flags format, long long ptr, int *res);
 char			*ft_itoa_base(long long n);
-static char		*posnumbase(long long n, char *str);
-static char		*negnumbase(long long n, char *str);
-static size_t	memsizebase(long long n);
 void			printunsigned(t_flags format, unsigned int n, int *res);
 void			printhex(t_flags format, unsigned int nbr, char *base, int *res);
+void			printhexminus(t_flags format, unsigned int nbr, int *res);
+void			printhexminusopt(t_flags format, unsigned int nbr, char *base, int *res);
+void			printhexreg(t_flags format, unsigned int nbr, int *res);
 void			printox(char *base, int *res);
+void			printpercent(t_flags format, int *res);
+int				memsizebase(long long n);
 
 #endif
