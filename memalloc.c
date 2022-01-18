@@ -1,12 +1,12 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-char **memalloc(const char *s)
+char	**memalloc(const char *s)
 {
-	char **rstr;
-	int count;
-	int index;
-	int i;
+	char	**rstr;
+	int		count;
+	int		index;
+	int		i;
 
 	i = 0;
 	index = 0;
