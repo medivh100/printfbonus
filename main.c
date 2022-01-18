@@ -208,12 +208,12 @@ void	printhex(t_flags format, unsigned int nbr, char *base, int *res)
 		printhexminusopt(format, nbr, base, res);
 	if (format.sharp == 1 && format.dot == 0 && format.fieldwidth == 0 && format.minus == 0)
 		printox(base, res);
-	ft_putnbr_base(format, nbr, base, res);
+	ft_putnbr_base(nbr, base, res);
 	if (format.minus == 1)
 		printhexminus(format, nbr, res);
 }
 
-void	ft_putnbr_base(t_flags format, unsigned int nbr, char *base, int *res)
+void	ft_putnbr_base(unsigned int nbr, char *base, int *res)
 {	
 	if (nbr < 0)
 	{
@@ -222,7 +222,7 @@ void	ft_putnbr_base(t_flags format, unsigned int nbr, char *base, int *res)
 	}
 	if (nbr >= 16)
 	{
-		ft_putnbr_base(format, nbr / 16, base, res);
+		ft_putnbr_base(nbr / 16, base, res);
 		nbr = nbr % 16;
 	}
 	if (nbr <= 16 && nbr >= 0)
@@ -243,13 +243,69 @@ void	ft_putnbr(int n, int *res)
 		printchar((nout + 48), res);
 }
 
+void	printnumzero(t_flags format, int n, int *res)
+{
+	if (format.plus == 1 && n >= 0)
+				*res += write(1, "+", 1);
+	if (n < 0)
+		*res += write(1, "-", 1);
+	if (format.space == 1 && n >= 0)
+		*res += write(1, " ", 1);
+	while ((--format.fieldwidth - numsizedot(n) - 1) >= 0)
+		*res += write(1, "0", 1);
+}
+
+void	printnumminus(t_flags format, int n, int *res)
+{
+	if (format.plus == 1 || format.space == 1)
+	{
+		if (format.plus == 1 && n >= 0)
+			*res += write(1, "+", 1);
+		if (format.space == 1 && format.plus != 1 && n >= 0)
+			*res += write(1, " ", 1);
+	}
+	if (n < 0)
+		*res += write(1, "-", 1);
+	if (format.dot == 1)
+		while ((--format.dotfield - numsizedot(n)) >= 0)
+			*res += write(1, "0", 1);
+}
+
+void	printnumminustwo(t_flags format, int n, int *res)
+{
+	if (format.minus == 1 && format.fieldwidth > 0 && format.dot == 0)
+	{
+		if (format.plus == 0 && format.space == 0)
+			while (--format.fieldwidth - numsize(n) >= 0)
+				*res += write(1, " ", 1);
+		if ((format.plus == 1 || format.space == 1) && n >= 0)
+			while (--format.fieldwidth - numsize(n) > 0)
+				*res += write(1, " ", 1);
+		if ((format.plus == 1 || format.space == 1) && n < 0)
+			while ((--format.fieldwidth - numsize(n)) >= 0)
+				*res += write(1, " ", 1);
+	}
+	if (format.minus == 1 && format.fieldwidth > 0 && format.dot == 1)
+	{
+		if (format.plus == 0 && format.space == 0 && n >= 0)
+			while ((--format.fieldwidth - format.dotfield) >= 0)
+				*res += write(1, " ", 1);
+		if (format.plus == 0 && format.space == 0 && n < 0)
+			while ((--format.fieldwidth - format.dotfield) > 0)
+				*res += write(1, " ", 1);
+		if (format.plus == 1 || format.space == 1)
+			while ((--format.fieldwidth - format.dotfield) > 0)
+				*res += write(1, " ", 1);
+	}
+}
+
 void	printnumberthree(t_flags format, int n, int *res)
 {
 	if (format.space == 1 || format.plus == 1)
 	{
 		while ((--format.fieldwidth - format.dotfield - 1) >= 0)
 			*res += write(1, " ", 1);
-		if (n >= 0 == format.plus == 1)
+		if (n >= 0 && format.plus == 1)
 			*res += write(1, "+", 1);
 		else if (n >= 0 && format.space == 1)
 			*res += write(1, " ", 1);
@@ -257,38 +313,45 @@ void	printnumberthree(t_flags format, int n, int *res)
 			*res += write(1, "-", 1);
 	}
 	else
-		while ((--format.fieldwidth - format.dotfield - numsizedot(n)) >= 0)
-			*res += write(1, " ", 1);
+	{
+		if (n < 0)
+			while ((--format.fieldwidth - format.dotfield - 1) >= 0)
+				*res += write(1, " ", 1);
+		if (n < 0)
+			*res += write(1, "-", 1);
+		if (n > 0)
+			while ((--format.fieldwidth - format.dotfield) >= 0)
+				*res += write(1, " ", 1);
+	}
 	while ((--format.dotfield - numsizedot(n)) >= 0)
 		*res += write(1, "0", 1);
 }
 
 void	printnumbertwo(t_flags format, int n, int *res)
 {
-		if (format.fieldwidth > 0 && format.zero == 0 && format.dot == 0)
+		if ((format.fieldwidth > 0 || format.plus == 1 || format.space == 1) && format.zero == 0 && format.dot == 0)
 		{
 			if (format.plus == 1 || format.space == 1)
 				while ((--format.fieldwidth - numsizedot(n) - 1) >= 0)
 					*res += write(1, " ", 1);
 			else
-				while ((--format.fieldwidth - numsizedot(n)) >= 0)
+				while ((--format.fieldwidth - numsize(n)) >= 0)
 					*res += write(1, " ", 1);
-		}
-		if (format.zero == 1 && format.fieldwidth > 0 && format.plus == 0 && format.space == 0 && format.dot == 0)
-			while ((--format.fieldwidth - numsize(n) - 1) >= 0)
-				*res += write(1, "0", 1);
-		if (format.zero == 1 && format.fieldwidth > 0 && format.dot == 0 && (format.space == 1 || format.plus == 1))
-		{
 			if (format.plus == 1 && n >= 0)
 				*res += write(1, "+", 1);
+			if (format.space == 1 && n >= 0 && format.plus != 1)
+				*res += write(1, " ", 1);
+		}
+		if (format.zero == 1 && format.fieldwidth > 0 && format.plus == 0 && format.space == 0 && format.dot == 0)
+		{
 			if (n < 0)
 				*res += write(1, "-", 1);
-			if (format.space == 1 && n >= 0)
-				*res += write(1, " ", 1);
-			while ((--format.fieldwidth - numsizedot(n) - 1) >= 0)
+			while ((--format.fieldwidth - numsize(n)) >= 0)
 				*res += write(1, "0", 1);
 		}
-		if (format.dot == 1 && format.fieldwidth > 0)
+		if (format.zero == 1 && format.fieldwidth > 0 && format.dot == 0 && (format.space == 1 || format.plus == 1))
+			printnumzero(format, n, res);
+		if (format.dot == 1)
 			printnumberthree(format, n, res);
 }
 
@@ -296,16 +359,15 @@ void	printnumberone(t_flags format, int n, int *res)
 {
 	if (format.minus == 0)
 		printnumbertwo(format, n, res);
-	if (format.dot == 0 && format.zero == 0)
+	if (format.minus == 1)
+		printnumminus(format, n, res);
+	if ((format.dot == 0 && format.zero == 0 && format.minus == 0)
+		|| (format.zero == 1 && format.fieldwidth == 0 && format.minus == 0))
 		if (n < 0)
 			*res += write(1, "-", 1);
 	ft_putnbr(n, res);
-	if (format.minus == 1 && format.fieldwidth > 0 && format.dot == 0)
-		while ((--format.fieldwidth - numsize(n)) >= 0)
-			*res += write(1, " ", 1);
-	if (format.minus == 1 && format.fieldwidth > 0 && format.dot == 1)
-		while ((--format.fieldwidth - format.dotfield - numsizedot(n)) >= 0)
-			*res += write(1, " ", 1); 
+	if (format.minus == 1)
+		printnumminustwo(format, n, res);
 }
 
 char	*negnumbase(long long n, char *str)
@@ -608,7 +670,7 @@ t_flags popstructone(const char *s, t_flags format)
 	{
 		if (s[i] == '-')
 			format.minus = 1;
-		if (s[i] == '0' && (s[i - 1] == '%' || s[i - 1] == '.' || s[i - 1] == '#' || s[i - 1] == ' ' || s[i - 1] == '-'))
+		if (s[i] == '0' && (s[i - 1] == '%' || s[i - 1] == '.' || s[i - 1] == '#' || s[i - 1] == ' ' || s[i - 1] == '-' || s[i - 1] == '+'))
 			format.zero = 1;
 		if (s[i] == '.')
 		{
@@ -733,8 +795,209 @@ int main(void)
 
 	i = 0;
 
-	printf("%0 15.10di\n", -22);
-	ft_printf("% 015.10d", -22);
+
+	printf("%di\n", -22);
+	ft_printf("%di", -22);
+	printf("\n\n");
+
+	printf("%+di\n", -22);
+	ft_printf("%+di", -22);
+	printf("\n\n");
+
+	printf("% di\n", -22);
+	ft_printf("% di", -22);
+	printf("\n\n");
+
+	printf("%+10di\n", -22);
+	ft_printf("%+10di", -22);
+	printf("\n\n");
+
+	printf("% 10di\n", -22);
+	ft_printf("% 10di", -22);
+	printf("\n\n");
+
+	printf("%0di\n", -22);
+	ft_printf("%0di", -22);
+	printf("\n\n");
+
+	printf("%010di\n", -22);
+	ft_printf("%010di", -22);
+	printf("\n\n");
+
+	printf("%+010di\n", -22);
+	ft_printf("%+010di", -22);
+	printf("\n\n");
+
+	printf("%+ 10di\n", -22);
+	ft_printf("%+ 10di", -22);
+	printf("\n\n");
+
+	printf("%.10di\n", -22);
+	ft_printf("%.10di", -22);
+	printf("\n\n");
+
+	printf("%+.10di\n", -22);
+	ft_printf("%+.10di", -22);
+	printf("\n\n");
+
+	printf("% .10di\n", -22);
+	ft_printf("% .10di", -22);
+	printf("\n\n");
+
+	printf("%15.10di\n", -22);
+	ft_printf("%15.10di", -22);
+	printf("\n\n");
+
+	printf("%+15.10di\n", -22);
+	ft_printf("%+15.10di", -22);
+	printf("\n\n");
+
+	printf("% 15.10di\n", -22);
+	ft_printf("% 15.10di", -22);
+	printf("\n\n");
+
+	printf("%di\n", 22);
+	ft_printf("%di", 22);
+	printf("\n\n");
+
+	printf("%+di\n", 22);
+	ft_printf("%+di", 22);
+	printf("\n\n");
+
+	printf("% di\n", 22);
+	ft_printf("% di", 22);
+	printf("\n\n");
+
+	printf("%+10di\n", 22);
+	ft_printf("%+10di", 22);
+	printf("\n\n");
+
+	printf("% 10di\n", 22);
+	ft_printf("% 10di", 22);
+	printf("\n\n");
+
+	printf("%0di\n", 22);
+	ft_printf("%0di", 22);
+	printf("\n\n");
+
+	printf("%010di\n", 22);
+	ft_printf("%010di", 22);
+	printf("\n\n");
+
+	printf("%+010di\n", 22);
+	ft_printf("%+010di", 22);
+	printf("\n\n");
+
+	printf("%+ 10di\n", 22);
+	ft_printf("%+ 10di", 22);
+	printf("\n\n");
+
+	printf("%.10di\n", 22);
+	ft_printf("%.10di", 22);
+	printf("\n\n");
+
+	printf("%+.10di\n", 22);
+	ft_printf("%+.10di", 22);
+	printf("\n\n");
+
+	printf("% .10di\n", 22);
+	ft_printf("% .10di", 22);
+	printf("\n\n");
+
+	printf("%15.10di\n", 22);
+	ft_printf("%15.10di", 22);
+	printf("\n\n");
+
+// Minus testing with negative int starts here 
+	printf("%-15di\n", -22);
+	ft_printf("%-15d1", -22);
+	printf("\n\n");
+
+	printf("%+-15di\n", 22);
+	ft_printf("%+-15d2", 22);
+	printf("\n\n");
+
+	printf("%- 15di\n", 22);
+	ft_printf("%- 15d3", 22);
+	printf("\n\n");
+
+	printf("%-+ 15di\n", 22);
+	ft_printf("%-+ 15d4", 22);
+	printf("\n\n");
+
+	printf("%-15.10di\n", -22);
+	ft_printf("%-15.10d5", -22);
+	printf("\n\n");
+
+	printf("%-+15.10di\n", -22);
+	ft_printf("%-+15.10d6", -22);
+	printf("\n\n");
+
+	printf("%- 15.10di\n", -22);
+	ft_printf("%- 15.10d7", -22);
+	printf("\n\n");
+
+	printf("%-+015.10di\n", -22);
+	ft_printf("%-+015.10d8", -22);
+	printf("\n\n");
+
+	printf("%-015.10di\n", -22);
+	ft_printf("%-015.10d9", -22);
+	printf("\n\n");
+
+	printf("%-015di\n", -22);
+	ft_printf("%-015d10", -22);
+	printf("\n\n");
+
+	printf("%-0.15di\n", -22);
+	ft_printf("%-.15d11", -22);
+	printf("\n\n");
+
+//Minus testing with positive int starts here
+
+	printf("%-15di\n", 22);
+	ft_printf("%-15d1", 22);
+	printf("\n\n");
+
+	printf("%+-15di\n", 22);
+	ft_printf("%+-15d2", 22);
+	printf("\n\n");
+
+	printf("%- 15di\n", 22);
+	ft_printf("%- 15d3", 22);
+	printf("\n\n");
+
+	printf("%-+ 15di\n", 22);
+	ft_printf("%-+ 15d4", 22);
+	printf("\n\n");
+
+	printf("%-15.10di\n", 22);
+	ft_printf("%-15.10d5", 22);
+	printf("\n\n");
+
+	printf("%-+15.10di\n", 22);
+	ft_printf("%-+15.10d6", 22);
+	printf("\n\n");
+
+	printf("%- 15.10di\n", 22);
+	ft_printf("%- 15.10d7", 22);
+	printf("\n\n");
+
+	printf("%-+015.10di\n", 22);
+	ft_printf("%-+015.10d8", 22);
+	printf("\n\n");
+
+	printf("%-015.10di\n", 22);
+	ft_printf("%-015.10d9", 22);
+	printf("\n\n");
+
+	printf("%-015di\n", 22);
+	ft_printf("%-015d10", 22);
+	printf("\n\n");
+
+	printf("%-0.15di\n", 22);
+	ft_printf("%-.15d11", 22);
+	printf("\n\n");
 
 	//printunsigned(format, b, &i);
 
