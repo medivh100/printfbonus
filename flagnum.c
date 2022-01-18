@@ -3,29 +3,29 @@
 
 int	flagnum(const char *s)
 {
-	int count;
-	int trigger;
+	int	res;
+	int	trigger;
 
-	count = 0;
+	res = 0;
 	trigger = 0;
 	while (*s)
 	{
-		if (*s == '%' && *(s + 1) == '%')
+		if (*s == '%' && *(s + 1) == '%' && trigger == 0)
 		{
-			count++;
 			s += 2;
+			res++;
 		}
-		if (*s == '%')
+		if (*s == '%' && trigger == 0)
 		{
 			trigger = 1;
 			s++;
 		}
 		if (trigger == 1 && validateflag(*s) == 1)
 		{
-			count++;
+			res++;
 			trigger = 0;
 		}
 		s++;
 	}
-	return (count);
+	return (res);
 }
