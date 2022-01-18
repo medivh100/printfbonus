@@ -1,18 +1,6 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-static size_t	memsizebase(long long n)
-{
-	size_t	i;
-
-	i = 0;
-	if (n < 0)
-		i = (memsizebase(-n) + 1);
-	if (n > 0)
-		i = (memsizebase(n / 16) + 1);
-	return (i);
-}
-
 static char	*negnumbase(long long n, char *str)
 {
 	size_t		max;
