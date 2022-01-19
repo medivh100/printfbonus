@@ -1,7 +1,8 @@
 #include "libft.h"
 #include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-void	ft_putptr_base(t_flags format, unsigned long long nbr, char *base, int *res)
+void	ft_putptr_base(unsigned long long nbr, char *base, int *res)
 {
 	if (nbr < 0)
 	{
@@ -10,7 +11,7 @@ void	ft_putptr_base(t_flags format, unsigned long long nbr, char *base, int *res
 	}
 	if (nbr >= 16)
 	{
-		ft_putptr_base(format, nbr / 16, base, res);
+		ft_putptr_base(nbr / 16, base, res);
 		nbr = nbr % 16;
 	}
 	if (nbr <= 16 && nbr >= 0)
