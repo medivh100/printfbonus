@@ -1,5 +1,6 @@
 #include "libft.h"
 #include "ft_printf_bonus.h"
+#include "ft_printf.h"
 
 void	printhexreg(t_flags format, unsigned int nbr, int *res)
 {

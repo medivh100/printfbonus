@@ -6,7 +6,7 @@ void	printformat(t_flags format, va_list ap, int *res)
     if (format.flag == 'c')
 		ft_putchar(format, va_arg(ap, int), res);
 	if (format.flag == 's')
-		ft_putstr(format, va_arg(ap, char *), res);
+		ft_putstr_bonus(format, va_arg(ap, char *), res);
 	if (format.flag == 'd')
 		printnumberone(format, va_arg(ap, int), res);
 	if (format.flag == 'p')

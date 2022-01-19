@@ -1,5 +1,6 @@
 #include "libft.h"
 #include "ft_printf_bonus.h"
+#include "ft_printf.h"
 
 t_flags	popstructtwo(const char *s, t_flags format)
 {

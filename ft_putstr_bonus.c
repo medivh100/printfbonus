@@ -1,5 +1,6 @@
 #include "libft.h"
 #include "ft_printf_bonus.h"
+#include "ft_printf.h"
 
 void	ft_putstr_bonus(t_flags format, char *s, int *res)
 {

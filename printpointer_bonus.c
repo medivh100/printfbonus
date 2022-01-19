@@ -1,5 +1,6 @@
 #include "libft.h"
 #include "ft_printf_bonus.h"
+#include "ft_printf.h"
 
 void	printpointer(t_flags format, long long ptr, int *res)
 {

@@ -1,5 +1,6 @@
 #include "libft.h"
 #include "ft_printf_bonus.h"
+#include "ft_printf.h"
 
 int		stringlen(const char *s, int *index)
 {

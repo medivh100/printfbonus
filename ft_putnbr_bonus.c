@@ -1,7 +1,8 @@
 #include "libft.h"
 #include "ft_printf_bonus.h"
+#include "ft_printf.h"
 
-void	ft_putnbr_bonus(int n, int *res)
+void	ft_putnbr(int n, int *res)
 {
 	long long	nout;
 

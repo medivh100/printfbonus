@@ -1,5 +1,6 @@
 #include "libft.h"
 #include "ft_printf_bonus.h"
+#include "ft_printf.h"
 
 void	printnumberone(t_flags format, int n, int *res)
 {
@@ -11,7 +12,7 @@ void	printnumberone(t_flags format, int n, int *res)
 		|| (format.zero == 1 && format.fieldwidth == 0 && format.minus == 0))
 		if (n < 0)
 			*res += write(1, "-", 1);
-	ft_putnbr_bonus(n, res);
+	ft_putnbr(n, res);
 	if (format.minus == 1)
 		printnumminustwo(format, n, res);
 }
