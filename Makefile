@@ -1,4 +1,5 @@
-SRCS =			dispatchflag.c ft_printf.c ft_putchar.c ft_putnbr_base.c ft_putnbr.c ft_putptr.c ft_putstr.c ft_putuns.c strcreate.c validateflag.c ft_putptr_base.c
+SRCS =			dispatchflag.c ft_printf.c printchar.c ft_putnbr_base.c ft_putnbr.c ft_putptr.c ft_putstr.c \
+				ft_putuns.c strcreate.c validateflag.c ft_putptr_base.c
 
 SRCS_LIBFT =	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 				ft_itoa.c ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c \
@@ -7,10 +8,22 @@ SRCS_LIBFT =	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isasc
 				ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c \
 				ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c
 
+SRCS_BONUS =	dotfield_bonus.c findfieldwidth_bonus.c findformat_bonus.c flagnum_bonus.c ft_itoa_base_bonus.c \
+				ft_printf_bonus.c ft_putchar_bonus.c ft_putnbr_base.c ft_putnbr_bonus.c ft_putstr_bonus.c \
+				ft_putuns_bonus.c initstruct_bonus.c memalloc_bonus.c memsizebase_bonus.c numsize_bonus.c numsizedot_bonus.c \
+				parseformat_bonus.c popstructone_bonus.c popstructtwo_bonus.c printall_bonus.c printchar.c \
+				printformat_bonus.c printhex_bonus.c printhexminus_bonus.c printhexminusopt_bonus.c printhexreg_bonus.c \
+				printhexsharp_bonus.c printnumberone_bonus.c printnumbertwo_bonus.c printnumberthree_bonus.c \
+				printnumminus_bonus.c printnumminustwo_bonus.c printnumzero_bonus.c printox_bonus.c printpercent_bonus.c \
+				printpointer_bonus.c printunsigned_bonus.c stringlen_bonus.c subflag_bonus.c validateflag.c
+
 NAME =			libftprintf.a
 
 OBJS +=			${SRCS:.c=.o}
 OBJS +=			${addprefix ${LIBFT_PATH},${SRCS_LIBFT:.c=.o}}
+
+OBJSBONUS += 	${SRCS_BONUS:.c=.o}
+OBJSBONUS += 	${addprefix ${LIBFT_PATH}, ${SRCS_LIBFT:.c=.o}}
 
 LIBFT_PATH =	libft/
 
@@ -26,10 +39,12 @@ ${NAME}:		${OBJS}
 				${AR} ${NAME} ${OBJS}
 .c.o:
 				${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+bonus:			${OBJSBONUS}
+				${AR} ${NAME} ${OBJSBONUS}
 all:			${NAME}
 clean:
-				${RM} ${OBJS}
+				${RM} ${OBJS} ${OBJSBONUS}
 fclean:			clean
 				${RM} ${NAME}
 re:				fclean all
-.PHONY:			all clean fclean re
+.PHONY:			all clean fclean re bonus
