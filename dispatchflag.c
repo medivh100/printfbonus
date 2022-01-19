@@ -1,12 +1,10 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-// Function that dispatches the arguments to corresponding functions for printing.
-
 void	dispatchflag(int c, va_list ap, int *res)
 {
 	if (c == 'c')
-		ft_putchar(va_arg(ap, int), res);
+		printchar(va_arg(ap, int), res);
 	if (c == 's')
 		ft_putstr(va_arg(ap, char *), res);
 	if (c == 'd')
