@@ -2,36 +2,13 @@
 #include "ft_printf_bonus.h"
 #include "ft_printf.h"
 
-static char	*negnumbase(long long n, char *str)
+static char	*posnumbase(unsigned long long n, char *str)
 {
 	size_t		max;
 	const char	*base;
 
 	base = "0123456789abcdef";
-	max = memsizebase(n);
-	str[max] = '\0';
-	while (max > 0)
-	{
-		if (n < 0)
-		{
-			str[0] = '-';
-			n = -n;
-			max--;
-		}
-		str[max] = base[n % 16];
-		n = n / 16;
-		max--;
-	}
-	return (str);
-}
-
-static char	*posnumbase(long long n, char *str)
-{
-	size_t		max;
-	const char	*base;
-
-	base = "0123456789abcdef";
-	max = memsizebase(n);
+	max = memsizebaseuns(n);
 	str[max] = '\0';
 	while (max > 0)
 	{
@@ -42,12 +19,12 @@ static char	*posnumbase(long long n, char *str)
 	return (str);
 }
 
-char	*ft_itoa_base(long long n)
+char	*ft_itoa_base(unsigned long long n)
 {
 	char	*str;
 	size_t	max;
 
-	max = memsizebase(n);
+	max = memsizebaseuns(n);
 	if (n == 0)
 	{
 		str = malloc(2 * sizeof(char));
@@ -55,11 +32,9 @@ char	*ft_itoa_base(long long n)
 		str[1] = '\0';
 		return (str);
 	}
-	str = malloc((memsizebase(n) + 1) * sizeof(char));
+	str = malloc((max + 1) * sizeof(char));
 	if (str == NULL)
 		return (NULL);
-	if (n < 0)
-		str = negnumbase(n, str);
 	else
 		str = posnumbase(n, str);
 	return (str);
