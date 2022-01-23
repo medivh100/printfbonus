@@ -11,6 +11,6 @@ int	ft_printf(const char *s, ...)
 
 	res = 0;
 	va_start(ap, s);
-	strcreate(s, ap, &res);
+	strcreate(s, &ap, &res);
 	return (res);
 }
