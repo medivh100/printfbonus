@@ -4,11 +4,6 @@
 
 void	ft_putptr_base(unsigned long long nbr, char *base, int *res)
 {
-	if (nbr < 0)
-	{
-		printchar('-', res);
-		nbr = -nbr;
-	}
 	if (nbr >= 16)
 	{
 		ft_putptr_base(nbr / 16, base, res);
