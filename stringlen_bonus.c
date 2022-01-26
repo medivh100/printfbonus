@@ -5,24 +5,19 @@
 int		stringlen(const char *s, int *index)
 {
 	int i;
-	int	count;
+	int	res;
 
 	i = *index;
-	count = 0;
+	res = 0;
 	while (s[i])
 	{
 		if (s[i] == '%')
-		{
-			while (validateflag(s[i + 1]) == 0)
-			{
-				i++;
-				count++;
-			}
-		}
+			while (validateflag(s[++i]) == 0)
+				res++;
 		if (validateflag(s[i]) == 1)
 			break ;
 		i++;
 	}
 	*index = i + 1;
-	return (count + 1);
+	return (res + 1);
 }
