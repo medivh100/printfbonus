@@ -62,5 +62,9 @@ void			ft_putnbr_base_bonus(t_flags format, unsigned int nbr, char *base, int *r
 void			ft_putstrtwo(t_flags format, char *s, int *res);
 int				memsizebaseuns(unsigned long long n);
 void			printunsminus(t_flags format, unsigned int n, int *res);
+void			printnumsign(t_flags format, int n, int *res);
+void			printnumspace(t_flags format, int n, int *res);
+void			printunsdot(t_flags format, unsigned int n, int *res);
+void			printhexregdot(t_flags format, unsigned int nbr, int *res);
 
 #endif
