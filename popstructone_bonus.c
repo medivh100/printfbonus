@@ -11,7 +11,7 @@ t_flags	popstructone(const char *s, t_flags format)
 	{
 		if (s[i] == '-')
 			format.minus = 1;
-		if (s[i] == '0' && (s[i - 1] == '%' || s[i - 1] == '.' || s[i - 1] == '#' || s[i - 1] == ' ' || s[i - 1] == '-' || s[i - 1] == '+'))
+		if (s[i] == '0' && s[i - 1] != '.' && (s[i - 1] == '%' || s[i - 1] == '#' || s[i - 1] == ' ' || s[i - 1] == '-' || s[i - 1] == '+'))
 			format.zero = 1;
 		if (s[i] == '.')
 		{
