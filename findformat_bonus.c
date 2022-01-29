@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   findformat_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <yst-laur@student.42quebec.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/28 19:22:09 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/01/28 19:22:12 by yst-laur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "libft.h"
 #include "ft_printf_bonus.h"
 #include "ft_printf.h"
 
-char	*findformat(const char *s,char *str, int *index)
+char	*findformat(const char *s, char *str, int *index)
 {
 	int	j;
 	int	trigger;

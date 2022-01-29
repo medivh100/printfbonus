@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dotfield_bonus.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <yst-laur@student.42quebec.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/28 19:21:42 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/01/28 19:21:45 by yst-laur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "libft.h"
 #include "ft_printf_bonus.h"
 #include "ft_printf.h"
@@ -12,7 +23,8 @@ int	dotfield(const char *s)
 	while (*s)
 	{
 		s++;
-		if ((*s == '-' || *s == ' ' || *s == '.' || validateflag(*s) == 1) && trigger == 1)
+		if ((*s == '-' || *s == ' ' || *s == '.'
+				|| validateflag(*s) == 1) && trigger == 1)
 			break ;
 		if (*s == '.')
 		{
