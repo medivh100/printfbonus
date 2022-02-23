@@ -23,7 +23,7 @@ int	ft_printf(const char *s, ...)
 	formatstrings = subflag(s, formatstrings);
 	res = 0;
 	va_start(ap, s);
-	printall(&ap, s, formatstrings, &res);
+	printall(ap, s, formatstrings, &res);
 	free(formatstrings);
 	va_end(ap);
 	return (res);

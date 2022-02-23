@@ -13,7 +13,7 @@
 #include "ft_printf_bonus.h"
 #include "ft_printf.h"
 
-void	printall(va_list *ap, const char *s, char **formatstrings, int *res)
+void	printall(va_list ap, const char *s, char **formatstrings, int *res)
 {
 	t_flags	format;
 	int		i;

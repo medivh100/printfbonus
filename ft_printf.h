@@ -17,9 +17,9 @@
 # include <stdarg.h>
 
 int		ft_printf(const char *s, ...);
-void	strcreate(const char *s, va_list *ap, int *res);
+void	strcreate(const char *s, va_list ap, int *res);
 int		validateflag(int c);
-void	dispatchflag(int c, va_list *ap, int *res);
+void	dispatchflag(int c, va_list ap, int *res);
 void	ft_putnbr_base(unsigned int n, char *base, int *res);
 void	ft_putnbr(int n, int *res);
 void	ft_putstr(char *s, int *res);
