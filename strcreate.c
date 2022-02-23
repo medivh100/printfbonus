@@ -12,7 +12,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-void	strcreate(const char *s, va_list *ap, int *res)
+void	strcreate(const char *s, va_list ap, int *res)
 {
 	while (*s)
 	{
