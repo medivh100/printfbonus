@@ -1,16 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   printformat_bonus.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <yst-laur@student.42quebec.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/28 19:34:27 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/01/28 19:34:30 by yst-laur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "libft.h"
 #include "ft_printf_bonus.h"
 
 void	printformat(t_flags format, va_list *ap, int *res)
 {
-    if (format.flag == 'c')
+	if (format.flag == 'c')
 		ft_putchar(format, va_arg(*ap, int), res);
 	if (format.flag == 's')
 		ft_putstr_bonus(format, va_arg(*ap, char *), res);
 	if (format.flag == 'd')
 		printnumberone(format, va_arg(*ap, int), res);
 	if (format.flag == 'p')
-		printpointer(format, va_arg(*ap, void*), res);
+		printpointer(format, va_arg(*ap, void *), res);
 	if (format.flag == 'i')
 		printnumberone(format, va_arg(*ap, int), res);
 	if (format.flag == 'u')

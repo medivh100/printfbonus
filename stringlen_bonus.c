@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stringlen_bonus.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <yst-laur@student.42quebec.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/28 19:40:08 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/01/28 19:40:10 by yst-laur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "libft.h"
 #include "ft_printf_bonus.h"
 #include "ft_printf.h"
 
-int		stringlen(const char *s, int *index)
+int	stringlen(const char *s, int *index)
 {
-	int i;
+	int	i;
 	int	res;
 
 	i = *index;

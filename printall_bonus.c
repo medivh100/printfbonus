@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   printall_bonus.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <yst-laur@student.42quebec.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/28 19:33:42 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/01/28 19:33:46 by yst-laur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "libft.h"
 #include "ft_printf_bonus.h"
 #include "ft_printf.h"
@@ -20,7 +31,7 @@ void	printall(va_list *ap, const char *s, char **formatstrings, int *res)
 			free(formatstrings[i]);
 			i++;
 			if (s[j] == '\0')
-				break;
+				break ;
 		}
 		if (s[j] == '\0')
 			break ;

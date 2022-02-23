@@ -17,7 +17,8 @@ SRCS_BONUS =	dotfield_bonus.c findfieldwidth_bonus.c findformat_bonus.c flagnum_
 				printnumminus_bonus.c printnumminustwo_bonus.c printnumzero_bonus.c printox_bonus.c printpercent_bonus.c \
 				printpointer_bonus.c printunsigned_bonus.c stringlen_bonus.c subflag_bonus.c validateflag.c ft_putstrnull_bonus.c \
 				printunsignedtwo_bonus.c ft_putnbr_base_bonus.c ft_putstrtwo_bonus.c memsizebaseuns_bonus.c printnumminusthree_bonus.c \
-				printunsminus_bonus.c printnumsign_bonus.c printnumspace_bonus.c printunsdot_bonus.c printhexregdot_bonus.c
+				printunsminus_bonus.c printnumsign_bonus.c printnumspace_bonus.c printunsdot_bonus.c printhexregdot_bonus.c \
+				printhexsharptwo_bonus.c
 
 NAME =			libftprintf.a
 

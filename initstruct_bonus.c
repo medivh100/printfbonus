@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initstruct_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <yst-laur@student.42quebec.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/28 19:28:54 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/01/28 19:28:57 by yst-laur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "libft.h"
 #include "ft_printf_bonus.h"
 #include "ft_printf.h"
 
-t_flags initstruct(t_flags format)
+t_flags	initstruct(t_flags format)
 {
 	format.dot = 0;
 	format.dotfield = 0;

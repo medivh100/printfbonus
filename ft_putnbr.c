@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <yst-laur@student.42quebec.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/28 19:24:17 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/01/28 19:24:21 by yst-laur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "libft.h"
 #include "ft_printf.h"
 
 void	ft_putnbr(int n, int *res)
 {
-	long long nout = (long long) n;
+	long long	nout;
+
+	nout = (long long) n;
 	if (nout < 0)
 	{
 		printchar('-', res);

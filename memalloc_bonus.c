@@ -1,13 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   memalloc_bonus.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <yst-laur@student.42quebec.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/28 19:31:19 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/01/28 19:31:23 by yst-laur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "libft.h"
 #include "ft_printf_bonus.h"
 #include "ft_printf.h"
 
-char **memalloc(const char *s)
+char	**memalloc(const char *s)
 {
-	char **rstr;
-	int res;
-	int index;
-	int i;
+	char	**rstr;
+	int		res;
+	int		index;
+	int		i;
 
 	i = -1;
 	index = 0;
