@@ -19,8 +19,7 @@ char	**memalloc(const char *s)
 	int		res;
 	int		index;
 	int		i;
-
-	int mem;
+	int		mem;
 
 	i = -1;
 	index = 0;
@@ -32,7 +31,6 @@ char	**memalloc(const char *s)
 		rstr[i] = malloc((mem + 2) * sizeof(char));
 		ft_memset(rstr[i], '\0', (mem + 2));
 	}
-	//rstr[i] = malloc(stringlen(s, &index) * sizeof(char));
 	rstr[i] = NULL;
 	return (rstr);
 }

@@ -18,12 +18,16 @@ int	ft_printf(const char *s, ...)
 	int		res;
 	va_list	ap;
 	char	**formatstrings;
+	int		i;
 
 	formatstrings = memalloc(s);
 	formatstrings = subflag(s, formatstrings);
 	res = 0;
+	i = -1;
 	va_start(ap, s);
 	printall(ap, s, formatstrings, &res);
+	while (formatstrings[++i])
+		free(formatstrings[i]);
 	free(formatstrings);
 	va_end(ap);
 	return (res);

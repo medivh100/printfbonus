@@ -28,7 +28,6 @@ void	printall(va_list ap, const char *s, char **formatstrings, int *res)
 			format = initstruct(format);
 			parseformat(format, formatstrings[i], ap, res);
 			j += ft_strlen(formatstrings[i]);
-			free(formatstrings[i]);
 			i++;
 			if (s[j] == '\0')
 				break ;

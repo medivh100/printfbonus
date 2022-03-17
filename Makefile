@@ -2,7 +2,7 @@ SRCS =			dispatchflag.c ft_printf.c printchar.c ft_putnbr_base.c ft_putnbr.c ft_
 				ft_putuns.c strcreate.c validateflag.c ft_putptr_base.c
 
 SRCSA =			dispatchflag.c ft_printf.c printchar.c ft_putnbr_base.c ft_putnbr.c ft_putptr.c ft_putstr.c \
-				ft_putuns.c strcreate.c validateflag.c ft_putptr_base.c
+				ft_putuns.c strcreate.c validateflag.c ft_putptr_base.c main.c
 
 SRCS_LIBFT =	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 				ft_itoa.c ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c \
@@ -55,6 +55,8 @@ LIBFT_PATH =	libft/
 
 CFLAGS =		-Wall -Wextra -Werror
 
+DB =			-g
+
 RM =			rm -f
 
 CC =			gcc
@@ -64,13 +66,13 @@ AR =			ar rc -s
 ${NAME}:		${OBJS}
 				${AR} ${NAME} ${OBJS}
 .c.o:
-				${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+				${CC} ${CFLAGS} ${DB} -c $< -o ${<:.c=.o}
 bonus:			${OBJSBONUS}
 				${AR} ${NAME} ${OBJSBONUS}
 mrun: 			${OBJSA}
 				${CC} ${CFLAGS} ${OBJSA}
 brun:			${OBJSBONUSA}
-				${CC} ${CFLAGS} ${OBJSBONUSA}
+				${CC} ${DB} ${CFLAGS} ${OBJSBONUSA}
 all:			${NAME}
 clean:
 				${RM} ${OBJS} ${OBJSBONUS} ${OBJSA} ${OBJSBONUSA}
