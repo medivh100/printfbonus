@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/28 19:37:55 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include "libft/libft.h"
 #include "ft_printf_bonus.h"
 
 void	printnumsign(t_flags format, int n, int *res)
@@ -20,6 +20,6 @@ void	printnumsign(t_flags format, int n, int *res)
 		*res += write(1, "+", 1);
 	else if (n >= 0 && format.space == 1)
 		*res += write(1, " ", 1);
-	else if (n < 0 == (format.space == 1 || format.plus == 1))
+	else if (n < 0 && (format.space == 1 || format.plus == 1))
 		*res += write(1, "-", 1);
 }

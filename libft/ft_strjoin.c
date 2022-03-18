@@ -25,17 +25,11 @@ static int	total_str_len(char const *s1, char const *s2)
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char		*ns;
-	size_t		start;
-	size_t		i;
-	size_t		k;
 
 	if (!s1)
 		return ((char *)s2);
 	if (!s2)
 		return ((char *)s1);
-	start = ft_strlen(s1);
-	i = 0;
-	k = 0;
 	ns = malloc((total_str_len(s1, s2) + 1 * sizeof(char)));
 	if (ns == NULL)
 		return (NULL);

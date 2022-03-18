@@ -9,8 +9,8 @@
 /*   Updated: 2022/01/28 19:40:34 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft/libft.h"
 #include "ft_printf.h"
-#include "libft.h"
 
 int	validateflag(int c)
 {

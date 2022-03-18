@@ -62,9 +62,7 @@ static char	*posnum(long long n, char *str)
 char	*ft_itoa(long long n)
 {
 	char	*str;
-	size_t	max;
 
-	max = memsize(n);
 	if (n == 0)
 	{
 		str = malloc(2 * sizeof(char));

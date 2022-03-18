@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/28 19:25:10 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include "libft/libft.h"
 #include "ft_printf.h"
 #include "ft_printf_bonus.h"
 
@@ -23,6 +23,6 @@ void	ft_putnbr_base_bonus(t_flags format, unsigned int nbr,
 		ft_putnbr_base(nbr / 16, base, res);
 		nbr = nbr % 16;
 	}
-	if (nbr <= 16 && nbr >= 0)
+	if (nbr <= 16)
 		printchar(base[nbr], res);
 }
