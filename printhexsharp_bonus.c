@@ -9,7 +9,6 @@
 /*   Updated: 2022/01/28 19:35:46 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft/libft.h"
 #include "ft_printf_bonus.h"
 #include "ft_printf.h"
 

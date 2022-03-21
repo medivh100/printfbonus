@@ -9,7 +9,6 @@
 /*   Updated: 2022/01/28 19:34:30 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft/libft.h"
 #include "ft_printf_bonus.h"
 
 void	printformat(t_flags format, va_list ap, int *res)

@@ -9,7 +9,6 @@
 /*   Updated: 2022/01/28 19:37:55 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft/libft.h"
 #include "ft_printf_bonus.h"
 
 void	printnumsign(t_flags format, int n, int *res)

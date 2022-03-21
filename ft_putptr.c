@@ -9,7 +9,6 @@
 /*   Updated: 2022/01/28 19:25:38 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft/libft.h"
 #include "ft_printf.h"
 
 void	ft_putptr(long long ptr, int *res)

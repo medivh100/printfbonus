@@ -9,7 +9,6 @@
 /*   Updated: 2022/01/28 19:39:06 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft/libft.h"
 #include "ft_printf_bonus.h"
 
 void	printunsdot(t_flags format, unsigned int n, int *res)

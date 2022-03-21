@@ -9,7 +9,6 @@
 /*   Updated: 2022/01/28 19:21:24 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft/libft.h"
 #include "ft_printf.h"
 
 void	dispatchflag(int c, va_list ap, int *res)

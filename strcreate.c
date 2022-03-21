@@ -9,7 +9,6 @@
 /*   Updated: 2022/01/28 19:39:59 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft/libft.h"
 #include "ft_printf.h"
 
 void	strcreate(const char *s, va_list ap, int *res)

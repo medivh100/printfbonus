@@ -9,7 +9,6 @@
 /*   Updated: 2022/01/28 19:35:34 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft/libft.h"
 #include "ft_printf_bonus.h"
 
 void	printhexregdot(t_flags format, unsigned int nbr, int *res)
