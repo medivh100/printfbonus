@@ -1,81 +1,63 @@
-SRCS =			dispatchflag.c ft_printf.c printchar.c ft_putnbr_base.c ft_putnbr.c ft_putptr.c ft_putstr.c \
-				ft_putuns.c strcreate.c validateflag.c ft_putptr_base.c
+SRCS =          dispatchflag.c ft_printf.c printchar.c ft_putnbr_base.c ft_putnbr.c ft_putptr.c ft_putstr.c \
+                ft_putuns.c strcreate.c validateflag.c ft_putptr_base.c
 
-SRCSA =			dispatchflag.c ft_printf.c printchar.c ft_putnbr_base.c ft_putnbr.c ft_putptr.c ft_putstr.c \
-				ft_putuns.c strcreate.c validateflag.c ft_putptr_base.c main.c
+SRCS_BONUS =    dotfield_bonus.c findfieldwidth_bonus.c findformat_bonus.c flagnum_bonus.c ft_itoa_base_bonus.c \
+                ft_printf_bonus.c ft_putchar_bonus.c ft_putnbr_base.c ft_putnbr_bonus.c ft_putstr_bonus.c \
+                ft_putuns_bonus.c initstruct_bonus.c memalloc_bonus.c memsizebase_bonus.c numsize_bonus.c numsizedot_bonus.c \
+                parseformat_bonus.c popstructone_bonus.c popstructtwo_bonus.c printall_bonus.c printchar.c \
+                printformat_bonus.c printhex_bonus.c printhexminus_bonus.c printhexminusopt_bonus.c printhexreg_bonus.c \
+                printhexsharp_bonus.c printnumberone_bonus.c printnumbertwo_bonus.c printnumberthree_bonus.c \
+                printnumminus_bonus.c printnumminustwo_bonus.c printnumzero_bonus.c printox_bonus.c printpercent_bonus.c \
+                printpointer_bonus.c printunsigned_bonus.c stringlen_bonus.c subflag_bonus.c validateflag.c ft_putstrnull_bonus.c \
+                printunsignedtwo_bonus.c ft_putnbr_base_bonus.c ft_putstrtwo_bonus.c memsizebaseuns_bonus.c printnumminusthree_bonus.c \
+                printunsminus_bonus.c printnumsign_bonus.c printnumspace_bonus.c printunsdot_bonus.c printhexregdot_bonus.c \
+                printhexsharptwo_bonus.c
 
-SRCS_LIBFT =	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
-				ft_itoa.c ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c \
-				ft_lstmap.c ft_lstnew.c ft_lstsize.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c \
-				ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_split.c ft_strchr.c \
-				ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c \
-				ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c
+MAIN =          main.c
 
-SRCS_BONUS =	dotfield_bonus.c findfieldwidth_bonus.c findformat_bonus.c flagnum_bonus.c ft_itoa_base_bonus.c \
-				ft_printf_bonus.c ft_putchar_bonus.c ft_putnbr_base.c ft_putnbr_bonus.c ft_putstr_bonus.c \
-				ft_putuns_bonus.c initstruct_bonus.c memalloc_bonus.c memsizebase_bonus.c numsize_bonus.c numsizedot_bonus.c \
-				parseformat_bonus.c popstructone_bonus.c popstructtwo_bonus.c printall_bonus.c printchar.c \
-				printformat_bonus.c printhex_bonus.c printhexminus_bonus.c printhexminusopt_bonus.c printhexreg_bonus.c \
-				printhexsharp_bonus.c printnumberone_bonus.c printnumbertwo_bonus.c printnumberthree_bonus.c \
-				printnumminus_bonus.c printnumminustwo_bonus.c printnumzero_bonus.c printox_bonus.c printpercent_bonus.c \
-				printpointer_bonus.c printunsigned_bonus.c stringlen_bonus.c subflag_bonus.c validateflag.c ft_putstrnull_bonus.c \
-				printunsignedtwo_bonus.c ft_putnbr_base_bonus.c ft_putstrtwo_bonus.c memsizebaseuns_bonus.c printnumminusthree_bonus.c \
-				printunsminus_bonus.c printnumsign_bonus.c printnumspace_bonus.c printunsdot_bonus.c printhexregdot_bonus.c \
-				printhexsharptwo_bonus.c
+NAMEA =         a.out
 
-SRCS_BONUSA =	main.c dotfield_bonus.c findfieldwidth_bonus.c findformat_bonus.c flagnum_bonus.c ft_itoa_base_bonus.c \
-				ft_printf_bonus.c ft_putchar_bonus.c ft_putnbr_base.c ft_putnbr_bonus.c ft_putstr_bonus.c \
-				ft_putuns_bonus.c initstruct_bonus.c memalloc_bonus.c memsizebase_bonus.c numsize_bonus.c numsizedot_bonus.c \
-				parseformat_bonus.c popstructone_bonus.c popstructtwo_bonus.c printall_bonus.c printchar.c \
-				printformat_bonus.c printhex_bonus.c printhexminus_bonus.c printhexminusopt_bonus.c printhexreg_bonus.c \
-				printhexsharp_bonus.c printnumberone_bonus.c printnumbertwo_bonus.c printnumberthree_bonus.c \
-				printnumminus_bonus.c printnumminustwo_bonus.c printnumzero_bonus.c printox_bonus.c printpercent_bonus.c \
-				printpointer_bonus.c printunsigned_bonus.c stringlen_bonus.c subflag_bonus.c validateflag.c ft_putstrnull_bonus.c \
-				printunsignedtwo_bonus.c ft_putnbr_base_bonus.c ft_putstrtwo_bonus.c memsizebaseuns_bonus.c printnumminusthree_bonus.c \
-				printunsminus_bonus.c printnumsign_bonus.c printnumspace_bonus.c printunsdot_bonus.c printhexregdot_bonus.c \
-				printhexsharptwo_bonus.c
+NAME =          libftprintf.a
 
-NAME =			libftprintf.a
+RULE =          bonus
 
-NAMEA =			a.out
+OBJS =          ${SRCS:.c=.o}
 
-OBJS +=			${SRCS:.c=.o}
-OBJS +=			${addprefix ${LIBFT_PATH},${SRCS_LIBFT:.c=.o}}
+OBJSBONUS =     ${SRCS_BONUS:.c=.o}
 
-OBJSA +=		${SRCSA:.c=.o}
-OBJSA +=		${addprefix ${LIBFT_PATH},${SRCS_LIBFT:.c=.o}}
+MAINOBJ =       ${MAIN:.c=.o}
 
-OBJSBONUS += 	${SRCS_BONUS:.c=.o}
-OBJSBONUS += 	${addprefix ${LIBFT_PATH}, ${SRCS_LIBFT:.c=.o}}
+LIBFT_PATH =    libft/
 
-OBJSBONUSA += 	${SRCS_BONUSA:.c=.o}
-OBJSBONUSA += 	${addprefix ${LIBFT_PATH}, ${SRCS_LIBFT:.c=.o}}
+LIBFT =         libft.a
 
-LIBFT_PATH =	libft/
+CFLAGS =        -Wall -Wextra -Werror
 
-CFLAGS =		-Wall -Wextra -Werror
+RM =            rm -f
 
-DB =			-g
+CC =            gcc
 
-RM =			rm -f
+AR =            ar rsc
 
-CC =			gcc
+LIBFTCLEAN =    make -C ${LIBFT_PATH} clean
 
-AR =			ar rc -s
+${LIBFT}:
+				make -C ${LIBFT_PATH} ${RULE}
 
-${NAME}:		${OBJS}
+${NAME}:        ${LIBFT} ${OBJS}
+				cp ${LIBFT_PATH}${LIBFT} ./${NAME}
 				${AR} ${NAME} ${OBJS}
 .c.o:
-				${CC} ${CFLAGS} ${DB} -c $< -o ${<:.c=.o}
-bonus:			${OBJSBONUS}
+				${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+bonus:			${OBJSBONUS} ${NAME}
 				${AR} ${NAME} ${OBJSBONUS}
-mrun: 			${OBJSA}
-				${CC} ${CFLAGS} ${OBJSA}
-brun:			${OBJSBONUSA}
-				${CC} ${DB} ${CFLAGS} ${OBJSBONUSA}
+mrun:			${NAME} ${OBJS} ${MAINOBJ}
+				${CC} ${CFLAGS} ${OBJS} ${MAINOBJ} ${NAME}
+brun:			bonus ${OBJSBONUS} ${MAINOBJ}
+				${CC} ${CFLAGS} ${OBJSBONUS} ${MAINOBJ} ${NAME}
 all:			${NAME}
 clean:
-				${RM} ${OBJS} ${OBJSBONUS} ${OBJSA} ${OBJSBONUSA}
+				${RM} ${OBJS} ${OBJSBONUS} ${MAINOBJ} ${OBJSA} ${OBJSBONUSA} && make -C ${LIBFT_PATH} fclean
 fclean:			clean
 				${RM} ${NAME} ${NAMEA}
 re:				fclean all
