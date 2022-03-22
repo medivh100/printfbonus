@@ -19,8 +19,6 @@ NAMEA =         a.out
 
 NAME =          libftprintf.a
 
-FTPRINTF =		libftprintf.a
-
 RULE =          bonus
 
 OBJS =          ${SRCS:.c=.o}
@@ -41,16 +39,16 @@ CC =            gcc
 
 AR =            ar rsc
 
-all:			${FTPRINTF}
+all:			${NAME}
 
-bonus:			${LIBFT} ${OBJSBONUS}
-				${AR} ${NAME} ${OBJSBONUS}
-
-${LIBFT}:
+bonus:			${OBJSBONUS}
 				make -C ${LIBFT_PATH} ${RULE}
 				cp ${LIBFT_PATH}${LIBFT} ./${NAME}
+				${AR} ${NAME} ${OBJSBONUS}
 
-${FTPRINTF}:	${LIBFT} ${OBJS}
+${NAME}:		${OBJS}
+				make -C ${LIBFT_PATH} ${RULE}
+				cp ${LIBFT_PATH}${LIBFT} ./${NAME}
 				${AR} ${NAME} ${OBJS}
 
 .c.o:
