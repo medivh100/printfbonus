@@ -9,22 +9,26 @@
 /*   Updated: 2022/01/28 19:40:10 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf_bonus.h"
 #include "ft_printf.h"
 
 int	stringlen(const char *s, int *index)
 {
 	int	i;
 	int	res;
+	int trigger;
 
 	i = *index;
 	res = 0;
+	trigger = 0;
 	while (s[i])
 	{
 		if (s[i] == '%')
+		{
+			trigger = 1;
 			while (validateflag(s[++i]) == 0)
 				res++;
-		if (validateflag(s[i]) == 1)
+		}
+		if (validateflag(s[i]) == 1 && trigger == 1)
 			break ;
 		i++;
 	}

@@ -9,7 +9,6 @@
 /*   Updated: 2022/01/28 19:31:23 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf_bonus.h"
 #include "ft_printf.h"
 
 char	**memalloc(const char *s)

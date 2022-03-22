@@ -9,7 +9,6 @@
 /*   Updated: 2022/01/28 19:36:53 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf_bonus.h"
 #include "ft_printf.h"
 
 void	printnumminus(t_flags format, int n, int *res)

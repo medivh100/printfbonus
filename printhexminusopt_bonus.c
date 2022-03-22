@@ -9,7 +9,6 @@
 /*   Updated: 2022/01/28 20:20:39 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf_bonus.h"
 #include "ft_printf.h"
 
 void	printhexminusopt(t_flags format, unsigned int nbr, char *base, int *res)

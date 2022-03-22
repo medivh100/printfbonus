@@ -9,7 +9,6 @@
 /*   Updated: 2022/01/28 19:33:46 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf_bonus.h"
 #include "ft_printf.h"
 
 void	printall(va_list ap, const char *s, char **formatstrings, int *res)

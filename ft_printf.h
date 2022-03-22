@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # include "libft/libft.h"
+# include "ft_printf_bonus.h"
 
 int		ft_printf(const char *s, ...);
 void	strcreate(const char *s, va_list ap, int *res);
