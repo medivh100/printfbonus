@@ -15,7 +15,7 @@ int	stringlen(const char *s, int *index)
 {
 	int	i;
 	int	res;
-	int trigger;
+	int	trigger;
 
 	i = *index;
 	res = 0;
