@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/28 19:36:32 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 void	printnumbertwo(t_flags format, int n, int *res)
 {

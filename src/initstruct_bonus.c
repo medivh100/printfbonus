@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/28 19:28:57 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 t_flags	initstruct(t_flags format)
 {

@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/28 19:40:10 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 int	stringlen(const char *s, int *index)
 {

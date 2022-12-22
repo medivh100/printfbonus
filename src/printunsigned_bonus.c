@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/28 19:39:22 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 void	printunsigned(t_flags format, unsigned int n, int *res)
 {

@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/28 19:25:10 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 void	ft_putnbr_base_bonus(t_flags format, unsigned int nbr,
 			char *base, int *res)

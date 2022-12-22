@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/28 19:38:40 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 void	printpercent(t_flags format, int *res)
 {

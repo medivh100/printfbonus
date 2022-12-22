@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/28 19:35:19 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 void	printhexreg(t_flags format, unsigned int nbr, int *res)
 {

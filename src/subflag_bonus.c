@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/28 19:40:22 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 char	**subflag(const char *s, char **str)
 {

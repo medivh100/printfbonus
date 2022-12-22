@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/28 19:33:56 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 void	printchar(int c, int *res)
 {

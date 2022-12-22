@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/28 19:34:59 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 void	printhexminus(t_flags format, unsigned int nbr, int *res)
 {

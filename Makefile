@@ -1,17 +1,17 @@
-SRCS =          dispatchflag.c ft_printf.c printchar.c ft_putnbr_base.c ft_putnbr.c ft_putptr.c ft_putstr.c \
-				ft_putuns.c strcreate.c validateflag.c ft_putptr_base.c
+SRCS =          src/dispatchflag.c src/ft_printf.c src/printchar.c src/ft_putnbr_base.c src/ft_putnbr.c src/ft_putptr.c src/ft_putstr.c \
+				src/ft_putuns.c src/strcreate.c src/validateflag.c src/ft_putptr_base.c
 
-SRCS_BONUS =    dotfield_bonus.c findfieldwidth_bonus.c findformat_bonus.c flagnum_bonus.c ft_itoa_base_bonus.c \
-				ft_printf_bonus.c ft_putchar_bonus.c ft_putnbr_base.c ft_putnbr_bonus.c ft_putstr_bonus.c \
-				ft_putuns_bonus.c initstruct_bonus.c memalloc_bonus.c memsizebase_bonus.c numsize_bonus.c numsizedot_bonus.c \
-				parseformat_bonus.c popstructone_bonus.c popstructtwo_bonus.c printall_bonus.c printchar.c \
-				printformat_bonus.c printhex_bonus.c printhexminus_bonus.c printhexminusopt_bonus.c printhexreg_bonus.c \
-				printhexsharp_bonus.c printnumberone_bonus.c printnumbertwo_bonus.c printnumberthree_bonus.c \
-				printnumminus_bonus.c printnumminustwo_bonus.c printnumzero_bonus.c printox_bonus.c printpercent_bonus.c \
-				printpointer_bonus.c printunsigned_bonus.c stringlen_bonus.c subflag_bonus.c validateflag.c ft_putstrnull_bonus.c \
-				printunsignedtwo_bonus.c ft_putnbr_base_bonus.c ft_putstrtwo_bonus.c memsizebaseuns_bonus.c printnumminusthree_bonus.c \
-				printunsminus_bonus.c printnumsign_bonus.c printnumspace_bonus.c printunsdot_bonus.c printhexregdot_bonus.c \
-				printhexsharptwo_bonus.c
+SRCS_BONUS =    src/dotfield_bonus.c src/findfieldwidth_bonus.c src/findformat_bonus.c src/flagnum_bonus.c src/ft_itoa_base_bonus.c \
+				src/ft_printf_bonus.c src/ft_putchar_bonus.c src/ft_putnbr_base.c src/ft_putnbr_bonus.c src/ft_putstr_bonus.c \
+				src/ft_putuns_bonus.c src/initstruct_bonus.c src/memalloc_bonus.c src/memsizebase_bonus.c src/numsize_bonus.c src/numsizedot_bonus.c \
+				src/parseformat_bonus.c src/popstructone_bonus.c src/popstructtwo_bonus.c src/printall_bonus.c src/printchar.c \
+				src/printformat_bonus.c src/printhex_bonus.c src/printhexminus_bonus.c src/printhexminusopt_bonus.c src/printhexreg_bonus.c \
+				src/printhexsharp_bonus.c src/printnumberone_bonus.c src/printnumbertwo_bonus.c src/printnumberthree_bonus.c \
+				src/printnumminus_bonus.c src/printnumminustwo_bonus.c src/printnumzero_bonus.c src/printox_bonus.c src/printpercent_bonus.c \
+				src/printpointer_bonus.c src/printunsigned_bonus.c src/stringlen_bonus.c src/subflag_bonus.c src/validateflag.c src/ft_putstrnull_bonus.c \
+				src/printunsignedtwo_bonus.c src/ft_putnbr_base_bonus.c src/ft_putstrtwo_bonus.c src/memsizebaseuns_bonus.c src/printnumminusthree_bonus.c \
+				src/printunsminus_bonus.c src/printnumsign_bonus.c src/printnumspace_bonus.c src/printunsdot_bonus.c src/printhexregdot_bonus.c \
+				src/printhexsharptwo_bonus.c
 
 MAIN =          main.c
 
@@ -27,6 +27,8 @@ OBJSBONUS =     ${SRCS_BONUS:.c=.o}
 
 MAINOBJ =       ${MAIN:.c=.o}
 
+SRC_PATH =		src/
+
 LIBFT_PATH =    libft/
 
 LIBFT =         libft.a
@@ -41,7 +43,7 @@ AR =            ar rsc
 
 all:			${NAME}
 
-bonus:			${OBJSBONUS}
+bonus:			${SRC_PATH}${OBJSBONUS}
 				make -C ${LIBFT_PATH} ${RULE}
 				cp ${LIBFT_PATH}${LIBFT} ./${NAME}
 				${AR} ${NAME} ${OBJSBONUS}

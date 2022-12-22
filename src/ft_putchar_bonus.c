@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/28 19:24:05 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 void	ft_putchar(t_flags format, int c, int *res)
 {
