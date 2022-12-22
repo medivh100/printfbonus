@@ -43,7 +43,7 @@ AR =            ar rsc
 
 all:			${NAME}
 
-bonus:			${SRC_PATH}${OBJSBONUS}
+bonus:			${OBJSBONUS}
 				make -C ${LIBFT_PATH} ${RULE}
 				cp ${LIBFT_PATH}${LIBFT} ./${NAME}
 				${AR} ${NAME} ${OBJSBONUS}
