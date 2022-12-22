@@ -4,6 +4,9 @@ This is a simple recoding of the c printf function. It handles the %d %i %s %c %
 
 ## Description
 
+Prototype:\
+int ft_printf(char *s, ...);
+
 %c takes in a char, %s takes in a char *, %d & %i take in an int(they are essentially the same), %u takes in an unsigned int, %p takes
 in a pointer, %x & %X take in a number in base 10 and print out it's representation in base 16, %% simply prints a % character and does not take a variable.
 The function also handles extra formatting options like setting a minimum field width, more or less precision, printing of extra characters for hexadecimal results.
@@ -29,5 +32,5 @@ Simply create a main of your liking and compile using the static library files. 
 
 Contributors names and contact info
 
-Yannick St-laurent
+Yannick St-laurent\
 yan_1731@hotmail.com
